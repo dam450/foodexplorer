@@ -43,7 +43,7 @@ export function SignUp() {
         </form>
 
         <p>
-          <a href="#">Já tenho uma conta</a>
+          <a href="/">Já tenho uma conta</a>
         </p>
       </div>
     </Container>

@@ -40,7 +40,7 @@ export function SignIn() {
         </form>
 
         <p>
-          <a href="#">Criar uma conta</a>
+          <a href="/signup">Criar uma conta</a>
         </p>
       </div>
     </Container>
