@@ -19,7 +19,7 @@ export function SignUp() {
   function handleSignUp(event) {
     event.preventDefault();
 
-    if (!name || !email || !password) alert('Por favor, preencha todos os valores!');
+    if (!name || !email || !password) return alert('Por favor, preencha todos os campos!');
 
     api
       .post('/users', { name, email, password })
