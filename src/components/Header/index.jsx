@@ -8,10 +8,13 @@ import logoImg from '../../assets/logo.svg';
 import exitImg from '../../assets/exit.svg';
 
 import { Input } from '../Input';
+import { useAuth } from '../../hooks/auth';
 
 export function Header() {
   const [menuOpen, setMenuOpen] = useState(false);
   const navRef = useRef();
+
+  const { signOut } = useAuth();
 
   function handleMenu() {
     if (menuOpen) {
@@ -55,7 +58,7 @@ export function Header() {
 
           <Input placeholder="Busque por pratos ou ingredientes" />
 
-          <button>
+          <button onClick={signOut}>
             <span>Sair</span>
           </button>
         </nav>
@@ -64,7 +67,7 @@ export function Header() {
           <img src={receiptImg} alt="" />
         </button>
 
-        <button id="exit">
+        <button id="exit" onClick={signOut}>
           <img src={exitImg} alt="" />
         </button>
       </div>

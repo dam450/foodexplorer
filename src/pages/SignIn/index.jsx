@@ -3,13 +3,19 @@ import { Container } from './styles';
 import logo from '../../assets/logo.svg';
 import { Button } from '../../components/Button';
 import { Input } from '../../components/Input';
+import { useAuth } from '../../hooks/auth';
+import { useState } from 'react';
 
 export function SignIn() {
+  const { signIn } = useAuth();
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+
   function handleSignIn(event) {
     event.preventDefault();
-    console.log(event.target.innerText);
-    alert('login efetuado');
+    signIn({ email, password });
   }
+
   return (
     <Container>
       <span className="logo">
@@ -25,6 +31,8 @@ export function SignIn() {
             id="email"
             type="email"
             placeholder="Exemplo: exemplo@exemplo.com.br"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
           />
 
           <label htmlFor="password">Senha</label>
@@ -32,6 +40,8 @@ export function SignIn() {
             id="password"
             type="password"
             placeholder="No mínimo 6 caracteres"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
           />
 
           <Button type="submit" onClick={handleSignIn}>
