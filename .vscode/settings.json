@@ -1,0 +1,27 @@
+{
+  "cSpell.customDictionaries": {
+    "project-words": {
+      "name": "project-words",
+      "path": "${workspaceRoot}/.vscode/project-words.txt",
+      "description": "Words used in this project",
+      "addWords": true
+    },
+    "custom": true, // Enable the `custom` dictionary
+    "internal-terms": false // Disable the `internal-terms` dictionary
+  },
+
+  "editor.formatOnSave": true,
+  "editor.formatOnPaste": true,
+  "editor.formatOnType": true,
+  "editor.formatOnSaveMode": "modificationsIfAvailable",
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+
+  "prettier.endOfLine": "lf",
+  "prettier.jsxSingleQuote": false,
+  "prettier.quoteProps": "as-needed",
+  "prettier.singleQuote": true,
+  "prettier.semi": true,
+  "prettier.trailingComma": "es5",
+  "files.eol": "\n",
+  "prettier.printWidth": 125
+}
