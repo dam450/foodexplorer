@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { MEDIA } from '../../styles/brakePoints';
+import { MEDIA } from '../../styles/brakepoints';
 
 export const Container = styled.div`
   width: 100%;
