@@ -1,14 +1,15 @@
 import { createContext, useContext, useEffect, useState } from 'react';
 import { api } from '../services/api';
 import { useLocalStorage } from './localStorage';
+import { decodeJwt } from '../utils/jwt';
 
 const AuthContext = createContext({});
 
 function AuthProvider({ children }) {
-  const [ data, setData ] = useState({});
+  const [data, setData] = useState({});
 
-  const [ storedToken, setStoredToken, delStoredToken ] = useLocalStorage('@foodexplorer:token');
-  const [ storedUser, setStoredUser, delStoredUser ] = useLocalStorage('@foodexplorer:user');
+  const [storedToken, setStoredToken, delStoredToken] = useLocalStorage('@foodexplorer:token');
+  const [storedUser, setStoredUser, delStoredUser] = useLocalStorage('@foodexplorer:user');
 
   //console.log('stored:', storedToken, storedUser);
 
@@ -35,25 +36,27 @@ function AuthProvider({ children }) {
   }
 
   function signOut() {
-    delStoredToken()
-    delStoredUser()
-    setData({})
+    delStoredToken();
+    delStoredUser();
+    setData({});
   }
 
   useEffect(() => {
-
     if (storedToken && storedUser) {
+      const { exp } = decodeJwt(storedToken);
+      console.log('exp:', exp * 1000);
+      const expirationDate = new Date(exp * 1000);
+      console.log('ed:', expirationDate);
+      console.log('now:', Date.now());
+      console.log('now:', new Date());
+      console.log('check:', expirationDate >= new Date());
 
       api.defaults.headers.authorization = `Bearer ${storedToken}`;
       setData({ token: storedToken, user: storedUser });
     }
   }, []);
 
-  return (
-    <AuthContext.Provider value={{ signIn, signOut, user: data.user }}>
-      {children}
-    </AuthContext.Provider>
-  );
+  return <AuthContext.Provider value={{ signIn, signOut, user: data.user }}>{children}</AuthContext.Provider>;
 }
 
 /**
