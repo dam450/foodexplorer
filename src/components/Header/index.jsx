@@ -1,4 +1,6 @@
 import { useRef, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+
 import { Container } from './styles';
 
 import openMenuImg from '../../assets/menu-open.svg';
@@ -49,33 +51,42 @@ export function Header() {
           <img src={logoImg} alt="logo food explorer" />
           <h1>food explorer</h1>
         </div>
-        <span>Admin</span>
+        {user.admin ? <span>Admin</span> : null}
       </div>
 
       <div className="bar">
         <nav ref={navRef}>
-          <button
-            className="menu"
-            onClick={toggleNavbar}
-            aria-label="Fechar Menu"
-          >
+          <button className="menu" onClick={toggleNavbar} aria-label="Fechar Menu">
             <img src={closeMenuImg} alt="fechar menu" />
             Menu
           </button>
 
           <Input placeholder="Busque por pratos ou ingredientes" />
 
-          <button onClick={signOut}>
+          {user.admin ? (
+            <button
+              className="mobile-button"
+              onClick={() => {
+                navigate('/new');
+              }}
+            >
+              <span>Novo prato</span>
+            </button>
+          ) : null}
+
+          <button className="mobile-button" onClick={handleSignOut}>
             <span>Sair</span>
           </button>
         </nav>
 
-        <button aria-label="pedido">
-          <img src={receiptImg} alt="" />
-        </button>
+        {user.admin ? null : (
+          <button aria-label="pedido">
+            <img src={receiptImg} alt="" />
+          </button>
+        )}
 
-        <button id="exit" onClick={signOut}>
-          <img src={exitImg} alt="" />
+        <button id="exit" onClick={handleSignOut}>
+          <img src={exitImg} alt="Sair da aplicação" />
         </button>
       </div>
     </Container>
