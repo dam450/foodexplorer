@@ -38,6 +38,8 @@ export const Content = styled.div`
     align-items: center;
     gap: 8px;
 
+    width: fit-content;
+
     font-family: 'Poppins';
     font-style: normal;
     font-weight: 500;
@@ -85,6 +87,38 @@ export const Content = styled.div`
     textarea {
       display: block;
       width: 100%;
+
+      resize: none;
+
+      background-color: #0d1d25;
+      color: #7c7c8a;
+      border: none;
+      padding: 1.4rem;
+      border-radius: 0.8rem;
+
+      font-family: 'Roboto';
+      font-style: normal;
+      font-weight: 400;
+      font-size: 1.6rem;
+      line-height: 100%;
+    }
+
+    select {
+      display: block;
+      width: 100%;
+      border: none;
+      height: 4.8rem;
+      padding: 1.4rem;
+      border-radius: 0.8rem;
+
+      background-color: #0d1d25;
+      color: #7c7c8a;
+
+      font-family: 'Roboto';
+      font-style: normal;
+      font-weight: 400;
+      font-size: 1.6rem;
+      line-height: 100%;
     }
   }
 `;

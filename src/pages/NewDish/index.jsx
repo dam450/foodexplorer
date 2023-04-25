@@ -9,6 +9,11 @@ import { Input } from '../../components/Input';
 import { Button } from '../../components/Button';
 
 export function NewDish() {
+
+  function handleSubmit() {
+    alert('enviei');
+  }
+
   return (
     <Container>
       <Header />
@@ -31,7 +36,15 @@ export function NewDish() {
 
         <div className="input-wrapper">
           <label htmlFor="dish-category">Categoria</label>
-          <Input type="text" placeholder="Refeição" id="dish-category" />
+          <select name="" id="dish-category">
+            <option value="0" defaultValue>
+              Escolha a categoria
+            </option>
+            <option value="1">Sobremesas</option>
+            <option value="2">Refeições</option>
+            <option value="3">Bebidas</option>
+          </select>
+          {/* <select type="text" placeholder="Refeição" id="dish-category" /> */}
         </div>
 
         <div className="input-wrapper">
@@ -41,7 +54,7 @@ export function NewDish() {
 
         <div className="input-wrapper">
           <label htmlFor="price">Preço</label>
-          <Input type="text" placeholder="R$ 00,00" id="price" />
+          <Input type="number" placeholder="R$ 00,00" id="price" />
         </div>
 
         <div className="input-wrapper">
@@ -53,7 +66,7 @@ export function NewDish() {
           ></textarea>
         </div>
 
-        <Button>Salvar alterações</Button>
+        <Button onClick={handleSubmit}>Salvar alterações</Button>
       </Content>
       <Footer />
     </Container>
