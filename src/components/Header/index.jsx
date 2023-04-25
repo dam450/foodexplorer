@@ -14,7 +14,9 @@ export function Header() {
   const [menuOpen, setMenuOpen] = useState(false);
   const navRef = useRef();
 
-  const { signOut } = useAuth();
+  const { signOut, user } = useAuth();
+
+  const navigate = useNavigate();
 
   function handleMenu() {
     if (menuOpen) {
@@ -24,6 +26,11 @@ export function Header() {
       document.getElementById('menu-img').src = closeMenuImg;
       setMenuOpen(true);
     }
+  }
+
+  function handleSignOut() {
+    navigate('/');
+    signOut();
   }
 
   function toggleNavbar(e) {
