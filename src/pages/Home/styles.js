@@ -18,7 +18,7 @@ export const Container = styled.div`
 
   color: ${({ theme }) => theme.COLORS.LIGHT_400};
 
-  ${DEVICE.md} {
+  ${DEVICE.lg} {
     grid-template-rows: 9.6rem auto 7.7rem;
   }
 `;
