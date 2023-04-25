@@ -9,8 +9,6 @@ export const Container = styled.div`
   height: 100%;
   min-height: 100vh;
 
-  margin-bottom: 62px;
-
   display: grid;
   grid-template-rows: 11.4rem auto 7.7rem;
   grid-template-areas:
