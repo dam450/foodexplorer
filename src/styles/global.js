@@ -24,11 +24,10 @@ export const GlobalStyle = createGlobalStyle`
   body {
     background: ${({ theme }) => theme.COLORS.DARK_400};
     color: ${({ theme }) => theme.COLORS.LIGHT_100};
-    min-height: 100vh;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-
     font-family: 'Roboto', sans-serif;
+    min-height: 100%;
   }
 
   a {
