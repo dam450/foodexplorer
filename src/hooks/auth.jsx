@@ -43,25 +43,32 @@ function AuthProvider({ children }) {
 
   useEffect(() => {
     if (storedToken && storedUser) {
-      const { exp } = decodeJwt(storedToken);
-      console.log('exp:', exp * 1000);
-      const expirationDate = new Date(exp * 1000);
-      console.log('ed:', expirationDate);
-      console.log('now:', Date.now());
-      console.log('now:', new Date());
-      console.log('check:', expirationDate >= new Date());
+      const { expiration: tokenExpiration } = decodeJwt(storedToken);
+
+      console.log(decodeJwt("storedToken"));
+
+      console.log('Validade token:', tokenExpiration);
+
+      if (tokenExpiration < new Date()) {
+        alert('login expirado!');
+        signOut();
+      }
 
       api.defaults.headers.authorization = `Bearer ${storedToken}`;
       setData({ token: storedToken, user: storedUser });
     }
   }, []);
 
-  return <AuthContext.Provider value={{ signIn, signOut, user: data.user }}>{children}</AuthContext.Provider>;
+  return (
+    <AuthContext.Provider value={{ signIn, signOut, user: data.user }}>
+      {children}
+    </AuthContext.Provider>
+  );
 }
 
 /**
  * Hook useAuth - authentication hook
- * @returns {{ signIn(), signOut(), user }} - return func signIn & user data
+ * @returns {{ signIn(), signOut(), user }} return func signIn, signOut & user data
  */
 function useAuth() {
   const context = useContext(AuthContext);
