@@ -31,8 +31,10 @@ export default {
     CAKE_100: '#82F3FF',
     CAKE_200: '#065E7C',
 
-    GRADIENTS_100:
-      'linear-gradient(90deg, rgba(0, 10, 15, 0.272541) 0%, #000A0F 100%)',
+    GRADIENTS_100: 'linear-gradient(90deg, rgba(0, 10, 15, 0.272541) 0%, #000A0F 100%)',
     GRADIENTS_200: 'linear-gradient(180deg, #091E26 0%, #00131C 100%)',
+
+    GRADIENTS_TORIGHT: 'linear-gradient(to right, #000a0fee 0%, #000a0f55 100%)',
+    GRADIENTS_TOLEFT: 'linear-gradient(to left, #000a0fee 0%, #000a0f55) 100%;',
   },
 };

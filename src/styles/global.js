@@ -2,18 +2,18 @@ import { createGlobalStyle } from 'styled-components';
 
 export const GlobalStyle = createGlobalStyle`
 
-  :root {
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
     font-size: 62.5%;
   }
 
   html {
     font-size: 1.6rem;
-  }
-
-  * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
   }
 
   h1, h2, h3, h4, h5{
@@ -24,11 +24,10 @@ export const GlobalStyle = createGlobalStyle`
   body {
     background: ${({ theme }) => theme.COLORS.DARK_400};
     color: ${({ theme }) => theme.COLORS.LIGHT_100};
-    min-height: 100vh;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-
     font-family: 'Roboto', sans-serif;
+    min-height: 100%;
   }
 
   a {

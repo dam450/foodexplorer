@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { MEDIA } from '../../styles/brakepoints';
+import { DEVICE } from '../../styles/device';
 
 export const Container = styled.footer`
   background-color: ${({ theme }) => theme.COLORS.DARK_600};
@@ -38,7 +38,7 @@ export const Container = styled.footer`
     color: ${({ theme }) => theme.COLORS.LIGHT_200};
   }
 
-  ${MEDIA.DESKTOP} {
+  ${DEVICE.lg} {
     padding-inline: 12.3rem;
     gap: 1rem;
     > .logo-footer {

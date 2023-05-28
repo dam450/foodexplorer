@@ -1,5 +1,8 @@
+import { Input } from '../Input';
+
 import styled from 'styled-components';
-import { MEDIA } from '../../styles/brakepoints';
+import { DEVICE } from '../../styles/device';
+
 
 export const Container = styled.header`
   background-color: ${({ theme }) => theme.COLORS.DARK_600};
@@ -16,11 +19,19 @@ export const Container = styled.header`
   justify-content: space-between;
   gap: 0.5rem;
 
+  .desktop-only {
+    display: none;
+
+    ${DEVICE.lg} {
+      display: initial;
+    }
+  }
+
   button {
     border: 0;
     border-radius: 2px;
     background: none;
-    padding: 0.2rem;
+    padding: 0.8rem 0.8rem 0.8rem 0;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -78,22 +89,23 @@ export const Container = styled.header`
     top: 0;
     left: 0;
     width: 100%;
-    height: 70%;
+    height: 100%;
     padding: 56px 28px;
 
-    background: linear-gradient(#001119 20%, #000a0f 20%);
+    background: linear-gradient(#001119 114px, #000a0f 114px);
 
     display: flex;
     flex-direction: column;
     align-items: flex-start;
 
     opacity: 0;
-    transform: translateY(-100vh);
+    transform: translateY(-100%);
 
     transition: all 300ms;
 
     .input {
-      margin-block: 6.8rem;
+      margin-top: 6.5rem;
+      margin-bottom: 3.6rem;
       width: 100%;
     }
   }
@@ -102,11 +114,20 @@ export const Container = styled.header`
     opacity: 1;
     transform: translateY(0);
   }
+
+  .mobile-button {
+    display: block;
+    width: 100%;
+    text-align: left;
+    border-bottom: 1px solid #192227;
+    height: 54px;
+  }
+
   #exit {
     display: none;
   }
 
-  ${MEDIA.DESKTOP} {
+  ${DEVICE.lg} {
     padding-inline: clamp(10px, 9vw, 12.3rem);
     padding-top: 0;
     gap: 1rem;
@@ -118,6 +139,7 @@ export const Container = styled.header`
     .logo-wrapper {
       flex-direction: column;
     }
+
     .logo {
       img {
         height: 3rem;
@@ -127,6 +149,7 @@ export const Container = styled.header`
         font-size: 2.4rem;
       }
     }
+
     nav {
       background: initial;
       position: initial;
@@ -145,13 +168,13 @@ export const Container = styled.header`
         margin: initial;
       }
 
-      button > span {
+      .mobile-button {
         display: none;
       }
     }
 
     .bar {
-      border: 1px solid red;
+      /* border: 1px solid red; */
       width: 68%;
       display: grid;
       /* grid: auto-flow dense / auto auto 40px; */
@@ -170,5 +193,13 @@ export const Container = styled.header`
         grid-area: exit;
       }
     }
+  }
+`;
+
+export const SearchBox = styled(Input)`
+    background: ${({ theme }) => theme.COLORS.DARK_900};
+
+  && {
+    background-color: transparent;
   }
 `;
