@@ -4,43 +4,16 @@ import "keen-slider/keen-slider.min.css";
 
 import { Container } from './styles';
 
-function Arrow(props) {
-  const disabled = props.disabled ? " arrow--disabled" : "";
-  return (
-    <>
-      {props.left && <div className="arrow-bg arrow--left"></div>}
-      {!props.left && <div className="arrow-bg arrow--right"></div>}
-      <svg
-        onClick={props.onClick}
-        className={`arrow ${props.left ? "arrow--left" : "arrow--right"
-          } ${disabled}`}
-        xmlns="http://www.w3.org/2000/svg"
-        viewBox="0 0 40 40"
-      >
-        {props.left && (
-          <path
-            d="M25.8839 6.61612C26.372 7.10427 26.372 7.89573 25.8839 8.38388L14.2678 20L25.8839 31.6161C26.372 32.1043 26.372 32.8957 25.8839 33.3839C25.3957 33.872 24.6043 33.872 24.1161 33.3839L11.6161 20.8839C11.128 20.3957 11.128 19.6043 11.6161 19.1161L24.1161 6.61612C24.6043 6.12796 25.3957 6.12796 25.8839 6.61612Z"
-          />
-        )}
-        {!props.left && (
-          <path
-            d="M14.1166 6.61612C14.6048 6.12796 15.3962 6.12796 15.8844 6.61612L28.3844 19.1161C28.8725 19.6043 28.8725 20.3957 28.3844 20.8839L15.8844 33.3839C15.3962 33.872 14.6048 33.872 14.1166 33.3839C13.6284 32.8957 13.6284 32.1043 14.1166 31.6161L25.7327 20L14.1166 8.38388C13.6284 7.89573 13.6284 7.10427 14.1166 6.61612Z"
-          />
-        )}
-      </svg>
-    </>
-  );
-}
-
-
 export function Slider({ title, children }) {
 
-  const childrenCount = Children.count(children);
+  const hasNoChilds = Children.count(children) === 0;
 
-  if (childrenCount === 0) return null;
+  if (hasNoChilds) return null;
 
-  const onlyChild = childrenCount === 1;
+  // const onlyChild = childrenCount === 1;
 
+  const [ currentSlide, setCurrentSlide ] = useState(0);
+  const [ loaded, setLoaded ] = useState(false);
   const sliderConfig = {
     initial: 0,
     slideChanged(slider) {
@@ -49,7 +22,6 @@ export function Slider({ title, children }) {
     created() {
       setLoaded(true);
     },
-
     mode: "free-snap",
     loop: false,
     slides: {
@@ -89,28 +61,25 @@ export function Slider({ title, children }) {
       },
     }
   };
-
-  const [ currentSlide, setCurrentSlide ] = useState(0);
-  const [ loaded, setLoaded ] = useState(false);
   const [ sliderRef, instanceRef ] = useKeenSlider(sliderConfig);
 
-  if (onlyChild) {
-    return (
-      <Container className="slider-wrapper">
-        {title && <h2 className="title">{title}</h2>}
-        <div ref={sliderRef} className="keen-slider">
-          {children}
-        </div>
-      </Container>
-    );
-  };
+  // if (onlyChild) {
+  //   return (
+  //     <Container className="slider-wrapper">
+  //       {title && <h2 className="title">{title}</h2>}
+  //       <div ref={sliderRef} className="keen-slider">
+  //         {children}
+  //       </div>
+  //     </Container>
+  //   );
+  // };
 
   return (
     <Container className="slider-wrapper">
       {title && <h2 className="title">{title}</h2>}
       <div ref={sliderRef} className="keen-slider">
-        {Children.map(children, child =>
-          <div className="keen-slider__slide">
+        {Children.map(children, (child, idx) =>
+          <div className={`keen-slider__slide number-slide${idx + 1}`} key={idx}>
             {child}
           </div>
         )}
@@ -132,13 +101,40 @@ export function Slider({ title, children }) {
             }
             disabled={
               currentSlide ===
-              instanceRef.current.track.details.slides.length - 1
+              instanceRef.current.track.details.slides.length - 2
             }
-            className={instanceRef.current.track.details.slides.length}
           />
         </>
       )}
     </Container>
 
+  );
+}
+
+function Arrow(props) {
+  const disabled = props.disabled ? " arrow--disabled" : "";
+  return (
+    <>
+      {props.left && <div className="arrow-bg arrow--left"></div>}
+      {!props.left && <div className="arrow-bg arrow--right"></div>}
+      <svg
+        onClick={props.onClick}
+        className={`arrow ${props.left ? "arrow--left" : "arrow--right"
+          } ${disabled}`}
+        xmlns="http://www.w3.org/2000/svg"
+        viewBox="0 0 40 40"
+      >
+        {props.left && (
+          <path
+            d="M25.8839 6.61612C26.372 7.10427 26.372 7.89573 25.8839 8.38388L14.2678 20L25.8839 31.6161C26.372 32.1043 26.372 32.8957 25.8839 33.3839C25.3957 33.872 24.6043 33.872 24.1161 33.3839L11.6161 20.8839C11.128 20.3957 11.128 19.6043 11.6161 19.1161L24.1161 6.61612C24.6043 6.12796 25.3957 6.12796 25.8839 6.61612Z"
+          />
+        )}
+        {!props.left && (
+          <path
+            d="M14.1166 6.61612C14.6048 6.12796 15.3962 6.12796 15.8844 6.61612L28.3844 19.1161C28.8725 19.6043 28.8725 20.3957 28.3844 20.8839L15.8844 33.3839C15.3962 33.872 14.6048 33.872 14.1166 33.3839C13.6284 32.8957 13.6284 32.1043 14.1166 31.6161L25.7327 20L14.1166 8.38388C13.6284 7.89573 13.6284 7.10427 14.1166 6.61612Z"
+          />
+        )}
+      </svg>
+    </>
   );
 }
