@@ -16,10 +16,14 @@ import { api } from '../../services/api';
 export function Dish() {
   const [ quantity, setQuantity ] = useState(5);
   const [ dish, setDish ] = useState();
-  const [ dishPreview, setDishPreview ] = useState(null);
+  // const [ dishPreview, setDishPreview ] = useState(null);
 
   const { id } = useParams();
   const navigate = useNavigate();
+
+  const dishPreviewURL = dish?.picture
+    ? `${api.defaults.baseURL}/files/${dish.picture}`
+    : PreviewPlaceholder;
 
   function handleSubmit() {
     alert(quantity);
@@ -31,7 +35,9 @@ export function Dish() {
       const { data } = await api.get(`/dishes/${dishId}`);
       if (data.id) {
         setDish(data);
-        setDishPreview(dish?.picture ?? PreviewPlaceholder);
+        // setDishPreview(dish?.picture ? `${api.defaults.baseURL}/files/${dish.picture}` : PreviewPlaceholder);
+        // console.log('dish: ', data);
+        // console.log('api:', api.defaults.baseURL)
       }
     } catch (error) {
       console.error(error);
@@ -52,7 +58,7 @@ export function Dish() {
         </Link>
         <div className="dish-wrapper">
           <div className="dish-preview">
-            <img src={dishPreview} alt="foto do prato" />
+            <img src={dishPreviewURL} alt="foto do prato" />
           </div>
           <div className="info">
             <h3>{dish?.name}</h3>
@@ -61,8 +67,8 @@ export function Dish() {
               {dish?.ingredients ? dish.ingredients.map((item, id) => <Tag key={id} title={item} />) : null}
             </div>
             <div className="order">
-              <QuantityPicker value={quantity} setValue={setQuantity} />
-              <Button onClick={handleSubmit}>incluir ∙ R$ {String(dish?.price).replace('.', ',')}</Button>
+              <QuantityPicker value={quantity} setValue={setQuantity} onChange={setQuantity} />
+              <Button onClick={handleSubmit}>incluir ∙ R$ {String(dish?.price.toFixed(2)).replace('.', ',')}</Button>
             </div>
           </div>
         </div>

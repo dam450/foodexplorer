@@ -62,6 +62,7 @@ export const Content = styled.div`
     flex-direction: column;
     align-items: center;
     align-content: center;
+    justify-content: center;
     gap: 16px;
 
     text-align: center;
@@ -75,6 +76,14 @@ export const Content = styled.div`
       > img {
         width: 100%;
         height: 100%;
+
+        animation-name: show;
+        animation-duration: 800ms;
+      }
+
+      @keyframes show {
+        from {opacity: 0;}
+        to {opacity: 1;}
       }
     }
 
@@ -104,7 +113,7 @@ export const Content = styled.div`
       border: 1px dotted green;
       width: 100%;
       justify-content: center;
-    }
+      }
 
     .order {
       display: flex;
@@ -123,7 +132,12 @@ export const Content = styled.div`
 
       .dish-preview {
         margin: unset;
+        width: 100%;
         max-width: 390px;
+
+        img {
+          width: 100%;
+        }
       }
 
       .tags,
