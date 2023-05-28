@@ -1,6 +1,6 @@
 import styled from 'styled-components';
-
 import { DEVICE } from '../../styles/device';
+
 import bannerImgSmall from '../../assets/banner-img-S.png';
 import bannerImgLarge from '../../assets/banner-img-L.png';
 
@@ -26,33 +26,30 @@ export const Container = styled.div`
 export const Content = styled.div`
   min-height: 100%;
   grid-area: Content;
+  max-width: 100%;
+  overflow-x: hidden;
 `;
 
 export const Banner = styled.div`
   width: 100%;
-
-  * {
-    /* border: 1px solid red; */
-  }
+  margin-bottom: 6.2rem;
 
   .banner-wrapper {
     ${DEVICE.lg} {
-      /* border: 1px solid green; */
-
       min-width: 100%;
-      margin: 172px 10px 0;
+      margin: 17.2rem 1rem 0;
     }
   }
 
   .banner-content {
-    width: calc(100% - 52px);
-    /* width: 88%; */
-    min-height: 120px;
-    margin: 44px 16px 0 36px;
+    width: calc(100% - 5.2rem);
 
-    padding-left: 153px;
-    padding-top: 36px;
-    padding-right: 16px;
+    min-height: 12rem;
+    margin: 4.4rem 1.6rem 0 3.6rem;
+
+    padding-left: 15.3rem;
+    padding-top: 3.6rem;
+    padding-right: 1.6rem;
 
     position: relative;
 
@@ -60,7 +57,7 @@ export const Banner = styled.div`
     border-radius: 2.9px;
 
     > h3 {
-      font-size: 18px;
+      font-size: 1.8rem;
       line-height: 140%;
 
       color: ${({ theme }) => theme.COLORS.LIGHT_300};
@@ -69,30 +66,43 @@ export const Banner = styled.div`
 
     > p {
       font-family: 'Poppins';
-      font-size: 12px;
+      font-size: 1.2rem;
       line-height: 140%;
 
       color: ${({ theme }) => theme.COLORS.LIGHT_300};
-      padding-bottom: 16px;
+      padding-bottom: 1.6rem;
     }
 
     .banner-img {
-      /* border: 1px dashed blue; */
       background: left top / cover no-repeat url(${bannerImgSmall});
-      width: 191px;
-      min-height: 149px;
+      width: 19.1rem;
+      min-height: 14.9rem;
       height: 120%;
 
       position: absolute;
 
       bottom: 0;
-      left: -30px;
+      left: -3rem;
+
+      animation-name: leftSlide;
+      animation-duration: 1s;
+    }
+
+    @keyframes leftSlide {
+      from {
+        opacity: 0;
+        transform: translateX(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateX(0)
+      }
     }
 
     ${DEVICE.lg} {
-      max-width: 1120px;
-      min-height: 260px;
-      /* margin: 44px 16px 0 36px; */
+      max-width: 112rem;
+      min-height: 26rem;
+
       margin: 0 auto;
 
       display: flex;
@@ -101,23 +111,23 @@ export const Banner = styled.div`
       justify-content: center;
 
       > h3 {
-        font-size: 40px;
+        font-size: 4rem;
         width: 58%;
 
         font-style: normal;
         font-weight: 500;
-        font-size: 40px;
+        font-size: 4rem;
         line-height: 140%;
       }
 
       > p {
-        font-size: 16px;
+        font-size: 1.6rem;
         width: 58%;
 
         font-family: 'Roboto';
         font-style: normal;
         font-weight: 400;
-        font-size: 16px;
+        font-size: 1.6rem;
         line-height: 100%;
       }
 
@@ -126,14 +136,54 @@ export const Banner = styled.div`
       }
 
       .banner-img {
-        /* background-image: url(${bannerImgLarge}); */
         background: left bottom / contain no-repeat url(${bannerImgLarge});
-        max-width: 656px;
+        max-width: 65.6rem;
         width: 60%;
-        height: 412px;
-        bottom: -14px;
-        left: -70px;
+        height: 41.2rem;
+        bottom: -1.4rem;
+        left: -7rem;
       }
     }
+
   }
+
+`;
+
+export const SliderWrapper = styled.div`
+  margin-top: 3rem;
+  border: 1px dotted red;
+  width: min(95vw, 1122px);
+  margin: 0 auto 24px;
+  /* margin-bottom: 24px; */
+
+
+    > h2 {
+    margin-bottom: 23px;
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 18px;
+    line-height: 140%;
+    color: #E1E1E6;
+
+    ${DEVICE.lg} {
+      font-size: 32px;
+    }
+  }
+
+  /* [class^="number-slide"],
+  [class*=" number-slide"] {
+    background: grey;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 50px;
+    color: #fff;
+    font-weight: 500;
+    height: 300px;
+    max-height: 100vh;
+  } */
+
+
+
 `;
