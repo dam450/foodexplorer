@@ -7,7 +7,7 @@ import { SignUp } from '../pages/SignUp';
 export function AuthRoutes() {
   return (
     <Routes>
-      <Route index element={<SignIn />} />
+      {/* <Route index element={<SignIn />} /> */}
       <Route path="/signin" element={<SignIn />} />
       {/* <Route path="/signin" element={<SignIn />} /> */}
       <Route path="/signup" element={<SignUp />} />
