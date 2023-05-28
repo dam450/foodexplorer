@@ -22,6 +22,16 @@ export const Container = styled.section`
     }
   }
 
+  ${DEVICE.lg} {
+    [class*="number-slide"]:first-of-type {
+      margin-left: 3rem;
+    }
+
+    [class*="number-slide"]:last-of-type {
+      padding-right: 4rem;
+    }
+  }
+
   .arrow {
     width: 4rem;
     height: 4rem;
