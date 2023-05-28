@@ -2,18 +2,18 @@ import { createGlobalStyle } from 'styled-components';
 
 export const GlobalStyle = createGlobalStyle`
 
-  :root {
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
     font-size: 62.5%;
   }
 
   html {
     font-size: 1.6rem;
-  }
-
-  * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
   }
 
   h1, h2, h3, h4, h5{
