@@ -1,6 +1,9 @@
 import styled from 'styled-components';
 import { DEVICE } from '../../styles/device';
 
+import { Button } from '../../components/Button';
+import ChevronDown from '../../assets/chevron-down.svg';
+
 export const Container = styled.div`
   width: 100%;
   height: 100%;
@@ -15,20 +18,18 @@ export const Container = styled.div`
 `;
 
 export const Content = styled.div`
-  margin-top: 10px;
-
   height: 100%;
   grid-area: Content;
-
-  padding: 10px 32px 52px;
+  padding: 1.0rem 3.2rem 5.2rem;
 
   display: flex;
   flex-direction: column;
-  gap: 24px;
+  gap: 2.4rem;
 
   * ::file-selector-button {
     display: none;
   }
+
   * ::-webkit-file-upload-button {
     display: none;
   }
@@ -36,52 +37,111 @@ export const Content = styled.div`
   > a:first-child {
     display: flex;
     align-items: center;
-    gap: 8px;
+    gap: .8rem;
 
     width: fit-content;
 
     font-family: 'Poppins';
     font-style: normal;
     font-weight: 500;
-    font-size: 16.5459px;
+    font-size: 1.6rem;
     line-height: 140%;
-    /* or 23px */
-
-    /* Light/Light 300 */
-
-    color: #e1e1e6;
+    color: ${({ theme }) => theme.COLORS.LIGHT_300};
   }
 
   > h3 {
-    /* Poppins/400-medium */
-
     font-family: 'Poppins';
     font-style: normal;
     font-weight: 500;
-    font-size: 32px;
+    font-size: 3.2rem;
     line-height: 140%;
-    /* identical to box height, or 45px */
+    color: ${({ theme }) => theme.COLORS.LIGHT_300};
+  }
 
-    /* Light/Light 300 */
-
-    color: #e1e1e6;
+  .input-row {
+      display: flex;
+      flex-direction: column;
+      gap: 2.4rem;
   }
 
   .input-wrapper {
+    /* margin-bottom: 1.6rem; */
+
     label {
       font-family: 'Roboto';
       font-style: normal;
       font-weight: 400;
-      font-size: 16px;
+      font-size: 1.6rem;
       line-height: 100%;
-      /* identical to box height, or 16px */
-
-      /* Light/Light 400 */
-
-      color: #c4c4cc;
+      color: ${({ theme }) => theme.COLORS.LIGHT_400};
 
       display: inline-block;
-      margin-bottom: 16px;
+      margin-bottom: 1.6rem;
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    &.image .input-image{
+      background-color: ${({ theme }) => theme.COLORS.DARK_800};
+      color: ${({ theme }) => theme.COLORS.LIGHT_100};
+      padding: 1.4rem 2.5rem;
+      height: 4.8rem;
+      border-radius: 0.8rem;
+      display: flex;
+      align-items: center;
+      gap: .8rem;
+
+      font-family: 'Poppins';
+      font-style: normal;
+      font-weight: 500;
+      font-size: 1.4rem;
+      line-height: 2.4rem;
+
+      span {
+        width: 100%;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
+
+      img {
+        height: 2.4rem;
+        width: 2.4rem;
+      }
+
+      ${DEVICE.lg} {
+        justify-content: center;
+        flex-direction: row-reverse;
+
+        span {
+        max-width: 16rem;
+        }
+      }
+    }
+
+    .ingredients-list {
+      /* border: 1px dotted green;      remove */
+
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      padding: 8px;
+
+      gap: 16px;
+      flex-wrap: wrap;
+      justify-content: flex-start;
+
+      width: 100%;
+      min-height: 48px;
+
+      /* Dark/Dark 800
+      #0D161B
+      */
+      background:  ${({ theme }) => theme.COLORS.DARK_800};
+      border-radius: 8px;
+
     }
 
     textarea {
@@ -90,8 +150,8 @@ export const Content = styled.div`
 
       resize: none;
 
-      background-color: #0d1d25;
-      color: #7c7c8a;
+      background-color: ${({ theme }) => theme.COLORS.DARK_800};
+      color: ${({ theme }) => theme.COLORS.LIGHT_500};
       border: none;
       padding: 1.4rem;
       border-radius: 0.8rem;
@@ -103,22 +163,96 @@ export const Content = styled.div`
       line-height: 100%;
     }
 
-    select {
-      display: block;
+    .select-container {
+      display: flex;
+      justify-content: center;
+      position: relative;
       width: 100%;
-      border: none;
-      height: 4.8rem;
-      padding: 1.4rem;
       border-radius: 0.8rem;
+      background-color: ${({ theme }) => theme.COLORS.DARK_800};
 
-      background-color: #0d1d25;
-      color: #7c7c8a;
+      select {
+        border: none;
+        appearance: none;
+        width: 100%;
+        height: 100%;
+        min-height: 4.8rem;
+        padding: 1.4rem;
+        background-color: transparent;
+        color: ${({ theme }) => theme.COLORS.LIGHT_500};
 
-      font-family: 'Roboto';
-      font-style: normal;
-      font-weight: 400;
-      font-size: 1.6rem;
-      line-height: 100%;
+        cursor: pointer;
+        padding-right: 40px;
+
+        font-family: 'Roboto';
+        font-style: normal;
+        font-weight: 400;
+        font-size: 1.6rem;
+        line-height: 100%;
+
+        background-image: url(${ChevronDown});
+        background-repeat: no-repeat;
+        background-size: 2.4rem;
+        background-position: bottom 50% right 16px; ;
+      }
     }
+
+    /* Chrome, Safari, Edge, Opera */
+    input::-webkit-outer-spin-button,
+    input::-webkit-inner-spin-button {
+      -webkit-appearance: none;
+      margin: 0;
+    }
+
+    /* Firefox */
+    input[type=number] {
+      -moz-appearance: textfield;
+      appearance: textfield;
+    }
+  }
+
+  ${DEVICE.lg} {
+    width: 100%;
+    max-width: 112rem;
+    margin-inline: auto;
+
+    gap: 3.2rem;
+
+    > a:first-child {
+      font-size: 2.4rem;
+    }
+
+    .input-row{
+      flex-direction: row;
+      gap: 3.2rem;
+    }
+
+    .input-wrapper.image{
+      width: 22%;
+    }
+    .input-wrapper.name{
+      width: 44%;
+    }
+    .input-wrapper.category{
+      width: 34%;
+    }
+    .input-wrapper.ingredients{
+      width: 76%;
+    }
+    .input-wrapper.price{
+      width: 24%;
+    }
+
+
+  }
+`;
+
+export const LightButton = styled(Button)`
+  background-color: ${({ theme }) => theme.COLORS.TOMATO_400};
+
+  ${DEVICE.lg} {
+    width: fit-content;
+    align-self: flex-end;
+
   }
 `;
