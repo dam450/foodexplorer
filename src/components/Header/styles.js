@@ -1,5 +1,8 @@
+import { Input } from '../Input';
+
 import styled from 'styled-components';
 import { DEVICE } from '../../styles/device';
+
 
 export const Container = styled.header`
   background-color: ${({ theme }) => theme.COLORS.DARK_600};
@@ -15,6 +18,14 @@ export const Container = styled.header`
   align-items: center;
   justify-content: space-between;
   gap: 0.5rem;
+
+  .desktop-only {
+    display: none;
+
+    ${DEVICE.lg} {
+      display: initial;
+    }
+  }
 
   button {
     border: 0;
@@ -182,5 +193,13 @@ export const Container = styled.header`
         grid-area: exit;
       }
     }
+  }
+`;
+
+export const SearchBox = styled(Input)`
+    background: ${({ theme }) => theme.COLORS.DARK_900};
+
+  && {
+    background-color: transparent;
   }
 `;

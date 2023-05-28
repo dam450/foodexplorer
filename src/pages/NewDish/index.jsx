@@ -89,7 +89,7 @@ export function NewDish() {
 
           <div className="input-wrapper name">
             <label htmlFor="dish-name">Nome</label>
-            <Input type="text" placeholder="Ex.: Salada Ceasar" id="dish-name" />
+            <Input type="text" placeholder="Ex.: Salada Ceasar" id="dish-name" altcolor />
           </div>
 
           <div className="input-wrapper category">
@@ -140,7 +140,7 @@ export function NewDish() {
 
           <div className="input-wrapper price">
           <label htmlFor="price">Preço</label>
-          <Input type="number" placeholder="R$ 00,00" id="price" />
+            <Input type="number" placeholder="R$ 00,00" id="price" altcolor />
           </div>
         </div>
 

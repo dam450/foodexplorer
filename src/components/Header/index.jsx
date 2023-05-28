@@ -1,7 +1,9 @@
 import { useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { FiSearch } from 'react-icons/fi'
 
-import { Container } from './styles';
+
+import { Container, SearchBox } from './styles';
 
 import openMenuImg from '../../assets/menu-open.svg';
 import closeMenuImg from '../../assets/menu-close.svg';
@@ -9,7 +11,9 @@ import receiptImg from '../../assets/receipt.svg';
 import logoImg from '../../assets/logo.svg';
 import exitImg from '../../assets/exit.svg';
 
+
 import { Input } from '../Input';
+import { Button } from '../Button';
 import { useAuth } from '../../hooks/auth';
 
 export function Header() {
@@ -61,7 +65,10 @@ export function Header() {
             Menu
           </button>
 
-          <Input placeholder="Busque por pratos ou ingredientes" />
+          <Input
+            placeholder="Busque por pratos ou ingredientes"
+            Icon={FiSearch}
+          />
 
           {user.admin ? (
             <button
@@ -79,7 +86,16 @@ export function Header() {
           </button>
         </nav>
 
-        {user.admin ? null : (
+        {user.admin ? (
+          <Button
+            className='desktop-only'
+            onClick={() => {
+              navigate('/new');
+            }}
+          >
+            Novo prato
+          </Button>
+        ) : (
           <button aria-label="pedido">
             <img src={receiptImg} alt="" />
           </button>

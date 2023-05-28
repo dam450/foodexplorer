@@ -1,14 +1,18 @@
 import styled from 'styled-components';
 
 export const Container = styled.div`
-  background-color: ${({ theme }) => theme.COLORS.DARK_800};
-  display: flex;
+display: flex;
+
+  background-color: ${ ({ altcolor, theme }) =>
+    altcolor ? `${theme.COLORS.DARK_800}` : `${theme.COLORS.DARK_900}`
+  };
+
   padding: 1.4rem;
   height: 4.8rem;
   border-radius: 0.8rem;
 
   &:has(input:focus-visible) {
-    outline: 1px auto ${({ theme }) => theme.COLORS.DARK_100};;
+    outline: 1px auto ${ ({ theme }) => theme.COLORS.DARK_100 };
   }
 
   > span {
