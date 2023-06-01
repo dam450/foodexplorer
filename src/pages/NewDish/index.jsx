@@ -1,7 +1,8 @@
-import { useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import { Link } from 'react-router-dom';
 
 import { Container, Content, LightButton } from './styles';
+
 import CaretLeft from '../../assets/CaretLeft.svg';
 import Upload from '../../assets/upload.svg';
 
@@ -9,7 +10,8 @@ import { Footer } from '../../components/Footer';
 import { Header } from '../../components/Header';
 import { Input } from '../../components/Input';
 import { NewTag } from '../../components/NewTag';
-import { useRef } from 'react';
+
+import { api } from '../../services/api';
 
 export function NewDish() {
 
@@ -19,6 +21,8 @@ export function NewDish() {
 
   const [ ingredients, setIngredients ] = useState([]);
   const [ newIngredient, setNewIngredient ] = useState('');
+
+  const [ categories, setCategories ] = useState([]);
 
   function handleRemoveIngredient(tag) {
     const filteredTags = ingredients.filter(t => t !== tag);
@@ -36,6 +40,7 @@ export function NewDish() {
   }
 
   function handleSubmit() {
+    console.log('ingredients: ', ingredients)
     alert('enviei');
   }
 
@@ -55,6 +60,19 @@ export function NewDish() {
     // setAvatar(imagePreview);
 
   }
+
+  async function fetchCategories() {
+    try {
+      const { data } = await api.get(`/categories`);
+      setCategories(data);
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
+  useEffect(() => {
+    fetchCategories();
+  }, [])
 
   return (
     <Container>
@@ -97,9 +115,9 @@ export function NewDish() {
             <div className='select-container'>
               <select name="categoria" id="dish-category">
                 <option value="">Escolha a categoria</option>
-                <option value="1">Sobremesas</option>
-                <option value="2">Refeições</option>
-                <option value="3">Bebidas</option>
+                {categories && categories.map(c => (
+                  <option value={c.id} key={`${c.id}${c.name}`}>{c.name}</option>
+                ))}
               </select>
               {/* <div className='icon-container'>
                 <img src={ChevronDown} alt="" />
