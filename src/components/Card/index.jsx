@@ -8,9 +8,9 @@ import { useState } from 'react';
 import { useEffect } from 'react';
 import { api } from '../../services/api';
 
-export function Card({ url = '#', isFavorite = false, dish, ...rest }) {
+export function Card({ url = '#', dish, ...rest }) {
   const favoriteBtn = useRef(null);
-  const [ favoriteState, setFavorite ] = useState(isFavorite);
+  const [ favoriteState, setFavorite ] = useState(dish.isFavorite);
 
   const dishx = {
     "id": 3,
@@ -23,10 +23,19 @@ export function Card({ url = '#', isFavorite = false, dish, ...rest }) {
 
   const dishImageURL = dish.picture ? `${api.defaults.baseURL}/files/${dish.picture}` : ImagePlaceholder;
 
-  function handleFavorite() {
-    console.log('favoritou:', favoriteState);
-    console.log(favoriteBtn.current);
-    setFavorite(prev => !prev);
+  async function handleFavorite() {
+
+    try {
+      if (favoriteState === true) {
+        await api.delete(`/favorites/${dish.id}`);
+      } else {
+        await api.post(`/favorites/${dish.id}`);
+      }
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setFavorite(prev => !prev);
+    }
   }
 
   function activeFavorite() {
