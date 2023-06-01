@@ -79,9 +79,9 @@ export function Slider({ title, children }) {
       {title && <h2 className="title">{title}</h2>}
       <div ref={sliderRef} className="keen-slider">
         {Children.map(children, (child, idx) =>
-          <div className={`keen-slider__slide number-slide${idx + 1}`} key={idx}>
+        (<div className={`keen-slider__slide number-slide${idx + 1}`} key={idx}>
             {child}
-          </div>
+        </div>)
         )}
       </div>
 
