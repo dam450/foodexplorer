@@ -68,7 +68,7 @@ export function Dish() {
             </div>
             <div className="order">
               <QuantityPicker value={quantity} setValue={setQuantity} onChange={setQuantity} />
-              <Button onClick={handleSubmit}>incluir ∙ R$ {String(dish?.price.toFixed(2)).replace('.', ',')}</Button>
+              <Button onClick={handleSubmit}>incluir ∙ R$ {dish?.price ? String(dish?.price.toFixed(2)).replace('.', ',') : "--"}</Button>
             </div>
           </div>
         </div>
