@@ -217,6 +217,23 @@ export const Content = styled.div`
     }
   }
 
+  .buttons {
+    display: flex;
+    gap: 3.2em;
+
+    button {
+      flex: 1;
+    }
+
+    ${DEVICE.lg} {
+      justify-content: flex-end;
+
+      button {
+        flex: none;
+      }
+    }
+  }
+
   ${DEVICE.lg} {
     width: 100%;
     max-width: 112rem;
@@ -249,12 +266,21 @@ export const Content = styled.div`
       width: 24%;
     }
 
+  }
+`;
+
+export const TomatoButton = styled(Button)`
+  background-color: ${({ theme }) => theme.COLORS.TOMATO_400};
+
+  ${DEVICE.lg} {
+    width: fit-content;
+    align-self: flex-end;
 
   }
 `;
 
-export const LightButton = styled(Button)`
-  background-color: ${({ theme }) => theme.COLORS.TOMATO_400};
+export const DarkButton = styled(Button)`
+  background-color: ${({ theme }) => theme.COLORS.DARK_800};
 
   ${DEVICE.lg} {
     width: fit-content;

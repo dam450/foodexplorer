@@ -1,7 +1,7 @@
 import { useEffect, useState, useRef } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 
-import { Container, Content, LightButton } from './styles';
+import { Container, Content, DarkButton, TomatoButton } from './styles';
 
 import CaretLeft from '../../assets/CaretLeft.svg';
 import Upload from '../../assets/upload.svg';
@@ -12,18 +12,23 @@ import { Input } from '../../components/Input';
 import { NewTag } from '../../components/NewTag';
 
 import { api } from '../../services/api';
+import { Button } from '../../components/Button';
 
-export function NewDish() {
+export function EditDish() {
 
+  const { id } = useParams();
+
+  const navigate = useNavigate();
+
+  // const [ dish, setDish ] = useState({});
+  const [ categories, setCategories ] = useState([]);
   const [ dishImageFile, setDishImageFile ] = useState(null);
   const [ imgNameDisplay, setImgNameDisplay ] = useState('Selecione imagem');
-  const addNew = useRef(null);
+
+  // const addNew = useRef(null);
 
   const [ ingredients, setIngredients ] = useState([]);
   const [ newIngredient, setNewIngredient ] = useState('');
-
-  const [ categories, setCategories ] = useState([]);
-
   const [ name, setName ] = useState('');
   const [ dishCategory, setDishCategory ] = useState('');
   const [ price, setPrice ] = useState('');
@@ -35,8 +40,6 @@ export function NewDish() {
   }
 
   function handleAddIngredient() {
-    // console.log('tags:', tags)
-
     if (!newIngredient) return;
     if (ingredients.includes(newIngredient.trim())) return setNewIngredient('');
 
@@ -44,24 +47,43 @@ export function NewDish() {
     setNewIngredient('');
   }
 
+  async function handleDelete(id) {
+
+    alert(`Deleted ${id} `);
+    const { status } = await api.delete(`/dishes/${id}`);
+
+    console.log('delete: ', status);
+
+    // TODO: redirecionar home
+  }
+
   async function handleSubmit() {
-    console.log('ingredients: ', ingredients)
-    alert('enviei');
 
-    const newDish = {};
+    // TODO: redirecionar home
 
-    newDish.name = name;
-    newDish.category_id = dishCategory;
-    newDish.description = description;
-    newDish.price = price;
-    newDish.ingredients = ingredients;
+    console.log('category_id:');
+    console.log(dishCategory);
+    switch (true) {
+      case name === '':
+        return alert('informe o nome do prato.');
+      case dishCategory == 0:
+        return alert('informe a categoria.');
+      case price == 0:
+        return alert('informe o preço');
+    }
 
-    console.log('newDish: ', newDish);
+    const dishUpdate = {};
+    dishUpdate.name = name;
+    dishUpdate.category_id = dishCategory;
+    dishUpdate.description = description;
+    dishUpdate.price = price;
+    dishUpdate.ingredients = ingredients;
 
-    const { data: savedDish } = await api.post(`/dishes`, newDish);
-    console.log('newItem: ', savedDish.id);
+    const { data: savedDish } = await api.put(`/dishes/${id}`, dishUpdate);
 
-    const { id } = savedDish;
+    console.log('savedDish: ', savedDish);
+
+    // const { id } = savedDish;
 
     if (dishImageFile && id) {
       const fileUploadForm = new FormData();
@@ -69,6 +91,7 @@ export function NewDish() {
 
       const response = await api.patch(`/dishes/${id}/picture`, fileUploadForm);
     }
+    alert('prato salvo!');
   }
 
   function handleImageKeypress(event) {
@@ -80,12 +103,6 @@ export function NewDish() {
     const file = event.target.files[ 0 ];
     setDishImageFile(file);
     setImgNameDisplay(file.name);
-
-    console.log('file', file);
-
-    // const imagePreview = URL.createObjectURL(file);
-    // setAvatar(imagePreview);
-
   }
 
   async function fetchCategories() {
@@ -97,9 +114,26 @@ export function NewDish() {
     }
   }
 
+  async function fetchDish(id) {
+    try {
+      const { data: dishInfo } = await api.get(`/dishes/${id}`);
+
+      setName(dishInfo.name);
+      setDescription(dishInfo.description);
+      setDishCategory(dishInfo.category_id);
+      setIngredients(dishInfo.ingredients);
+      setPrice(dishInfo.price);
+
+    } catch (error) {
+      console.error(error);
+      navigate('/', redirect);
+    }
+  }
+
   useEffect(() => {
     fetchCategories();
-  }, [])
+    fetchDish(id);
+  }, []);
 
   return (
     <Container>
@@ -109,7 +143,8 @@ export function NewDish() {
         <Link to={'/'} className="back">
           <img src={CaretLeft} alt="" /> Voltar
         </Link>
-        <h3>Novo prato</h3>
+
+        <h3>Editar prato</h3>
 
         <div className='input-row'>
           <div className="input-wrapper image">
@@ -145,26 +180,23 @@ export function NewDish() {
                 value={dishCategory}
                 onChange={e => setDishCategory(e.target.value)}
               >
-                <option value="" disabled>Escolha a categoria</option>
                 {categories && categories.map(c => (
                   <option value={c.id} key={`${c.id}-${c.name}`}>{c.name}</option>
                 ))}
               </select>
-              {/* <div className='icon-container'>
-                <img src={ChevronDown} alt="" />
-              </div> */}
+
             </div>
-            {/* <select type="text" placeholder="Refeição" id="dish-category" /> */}
+
           </div>
         </div>
 
         <div className='input-row'>
           <div className="input-wrapper ingredients">
-          <label htmlFor="ingredients">Ingredientes</label>
-            {/* <Input type="text" placeholder="Pão Naan" id="ingredients" /> */}
+            <label htmlFor="ingredients">Ingredientes</label>
+
             <div className='ingredients-list'>
 
-              {ingredients.length > 0 &&
+              {ingredients?.length > 0 &&
                 ingredients.map((ingredient, idx) => (
                   <NewTag
                     key={`${idx}-${ingredient}`}
@@ -185,10 +217,10 @@ export function NewDish() {
                 onKeyUp={e => { if (e.key === 'Enter') handleAddIngredient(); }}
               />
             </div>
-        </div>
+          </div>
 
           <div className="input-wrapper price">
-          <label htmlFor="price">Preço</label>
+            <label htmlFor="price">Preço</label>
             <Input type="number" placeholder="R$ 00,00" id="price" altcolor
               value={price}
               onChange={e => setPrice(e.target.value)}
@@ -207,7 +239,10 @@ export function NewDish() {
           ></textarea>
         </div>
 
-        <LightButton onClick={handleSubmit}>Salvar alterações</LightButton>
+        <div className="buttons">
+          <DarkButton onClick={() => handleDelete(id)} className="button delete" >Excluir prato</DarkButton>
+          <TomatoButton onClick={handleSubmit} className="button save" >Salvar alterações</TomatoButton>
+        </div>
 
       </Content>
       <Footer />

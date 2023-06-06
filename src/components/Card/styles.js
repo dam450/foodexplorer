@@ -12,6 +12,7 @@ export const Container = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
 
   background: ${({ theme }) => theme.COLORS.DARK_200};
   border: 1px solid ${({ theme }) => theme.COLORS.DARK_300};
@@ -52,8 +53,34 @@ export const Container = styled.div`
     }
 
     &:hover svg path {
-      stroke: #7C7C8A;
-      /* LIGHT_500: '#7C7C8A', */
+      stroke: ${({ theme }) => theme.COLORS.LIGHT_500};
+      /* #7C7C8A; */
+    }
+  }
+
+    .edit {
+    border: none;
+    margin: 16px;
+    width: 24px;
+    height: 24px;
+    background-color: transparent;
+    position: absolute;
+    top: 0;
+    right: 0;
+    z-index: 99;
+
+    transition: transform 300ms;
+
+    &:hover {
+      transform: scale(1.1);
+    }
+
+    > svg path{
+    transition: stroke 1s;
+    }
+
+    &:hover svg path {
+      stroke: ${({ theme }) => theme.COLORS.LIGHT_500};
     }
   }
 
@@ -71,7 +98,8 @@ export const Container = styled.div`
     line-height: 24px;
 
     text-align: center;
-    color: #e1e1e6;
+    color: ${({ theme }) => theme.COLORS.LIGHT_300};
+
     margin-bottom: 12px;
 
     width: 100%;
@@ -88,15 +116,10 @@ export const Container = styled.div`
 
       text-align: right;
 
-      /* color: orange; */
       background: ${({ theme }) => theme.COLORS.DARK_200};
       width: 1em;
     }
   }
-
-  /* > .title::after {
-    content: ' >';
-  } */
 
   .description {
     font-family: 'Roboto';
@@ -107,7 +130,7 @@ export const Container = styled.div`
     margin-bottom: 15px;
 
     text-align: center;
-    color: #c4c4cc;
+    color:  ${({ theme }) => theme.COLORS.LIGHT_400};
     display: none;
 
     /* TODO: description ellipsis height */
@@ -122,7 +145,7 @@ export const Container = styled.div`
     margin-bottom: 10px;
 
     text-align: center;
-    color: #82f3ff;
+    color:  ${({ theme }) => theme.COLORS.CAKE_100};
   }
 
   .group {
@@ -134,8 +157,7 @@ export const Container = styled.div`
 
     button:nth-child(2) {
       padding: 4px;
-
-      background: #750310;
+      background:  ${({ theme }) => theme.COLORS.TOMATO_100};
       border: none;
       border-radius: 5px;
 
@@ -146,7 +168,7 @@ export const Container = styled.div`
       line-height: 24px;
 
       width: 100%;
-      color: #ffffff;
+      color:  ${({ theme }) => theme.COLORS.LIGHT_100};
     }
   }
 

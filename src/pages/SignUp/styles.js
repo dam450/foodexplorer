@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { MEDIA } from '../../styles/brakepoints';
+import { DEVICE } from '../../styles/device'
 
 export const Container = styled.div`
   height: 100dvh;
@@ -18,7 +18,7 @@ export const Container = styled.div`
     /* border: 1px solid red; */
   }
 
-  ${MEDIA.DESKTOP} {
+  ${DEVICE.lg} {
     padding: 1em;
     flex-direction: row;
     align-items: center;
@@ -52,7 +52,7 @@ export const Container = styled.div`
       width: 4.3rem;
     }
 
-    ${MEDIA.DESKTOP} {
+    ${DEVICE.lg} {
       width: auto;
       gap: 1.9rem;
 
@@ -127,7 +127,7 @@ export const Container = styled.div`
       }
     }
 
-    ${MEDIA.DESKTOP} {
+    ${DEVICE.lg} {
       min-width: 47.6rem;
       background-color: ${({ theme }) => theme.COLORS.DARK_700};
       border-radius: 1.6rem;
