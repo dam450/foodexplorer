@@ -4,6 +4,7 @@ import { useAuth } from '../hooks/auth';
 import { Home } from '../pages/Home';
 import { Dish } from '../pages/Dish';
 import { NewDish } from '../pages/NewDish';
+import { EditDish } from '../pages/EditDish';
 
 export function AppRoutes() {
 
@@ -18,7 +19,10 @@ export function AppRoutes() {
 
       {
         isAdmin ? (
-          <Route path="/new" element={<NewDish />} />
+          <>
+            <Route path="/new" element={<NewDish />} />
+            <Route path="/edit/:id" element={<EditDish />} />
+          </>
         ) : null
       }
 
