@@ -172,13 +172,19 @@ export const Content = styled.div`
       background-color: ${({ theme }) => theme.COLORS.DARK_800};
 
       select {
+        -webkit-appearance:none;
+        -moz-appearance:none;
+        -ms-appearance:none;
+        appearance:none;
+
         border: none;
-        appearance: none;
+        border-radius: 0.8rem;
+        box-shadow:none;
         width: 100%;
         height: 100%;
         min-height: 4.8rem;
         padding: 1.4rem;
-        background-color: transparent;
+        background-color: ${({ theme }) => theme.COLORS.DARK_800};
         color: ${({ theme }) => theme.COLORS.LIGHT_500};
 
         cursor: pointer;

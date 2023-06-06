@@ -24,6 +24,11 @@ export function NewDish() {
 
   const [ categories, setCategories ] = useState([]);
 
+  const [ name, setName ] = useState('');
+  const [ dishCategory, setDishCategory ] = useState('');
+  const [ price, setPrice ] = useState('');
+  const [ description, setDescription ] = useState('');
+
   function handleRemoveIngredient(tag) {
     const filteredTags = ingredients.filter(t => t !== tag);
     setIngredients(filteredTags);
@@ -39,9 +44,31 @@ export function NewDish() {
     setNewIngredient('');
   }
 
-  function handleSubmit() {
+  async function handleSubmit() {
     console.log('ingredients: ', ingredients)
     alert('enviei');
+
+    const newDish = {};
+
+    newDish.name = name;
+    newDish.category_id = dishCategory;
+    newDish.description = description;
+    newDish.price = price;
+    newDish.ingredients = ingredients;
+
+    console.log('newDish: ', newDish);
+
+    const { data: savedDish } = await api.post(`/dishes`, newDish);
+    console.log('newItem: ', savedDish.id);
+
+    const { id } = savedDish;
+
+    if (dishImageFile && id) {
+      const fileUploadForm = new FormData();
+      fileUploadForm.append('picture', dishImageFile);
+
+      const response = await api.patch(`/dishes/${id}/picture`, fileUploadForm);
+    }
   }
 
   function handleImageKeypress(event) {
@@ -80,7 +107,6 @@ export function NewDish() {
       <Content>
 
         <Link to={'/'} className="back">
-          {' '}
           <img src={CaretLeft} alt="" /> Voltar
         </Link>
         <h3>Novo prato</h3>
@@ -107,16 +133,21 @@ export function NewDish() {
 
           <div className="input-wrapper name">
             <label htmlFor="dish-name">Nome</label>
-            <Input type="text" placeholder="Ex.: Salada Ceasar" id="dish-name" altcolor />
+            <Input type="text" placeholder="Ex.: Salada Ceasar" id="dish-name" altcolor
+              value={name}
+              onChange={e => setName(e.target.value)} />
           </div>
 
           <div className="input-wrapper category">
             <label htmlFor="dish-category">Categoria</label>
             <div className='select-container'>
-              <select name="categoria" id="dish-category">
-                <option value="">Escolha a categoria</option>
+              <select name="categoria" id="dish-category"
+                value={dishCategory}
+                onChange={e => setDishCategory(e.target.value)}
+              >
+                <option value="" disabled>Escolha a categoria</option>
                 {categories && categories.map(c => (
-                  <option value={c.id} key={`${c.id}${c.name}`}>{c.name}</option>
+                  <option value={c.id} key={`${c.id}-${c.name}`}>{c.name}</option>
                 ))}
               </select>
               {/* <div className='icon-container'>
@@ -158,7 +189,10 @@ export function NewDish() {
 
           <div className="input-wrapper price">
           <label htmlFor="price">Preço</label>
-            <Input type="number" placeholder="R$ 00,00" id="price" altcolor />
+            <Input type="number" placeholder="R$ 00,00" id="price" altcolor
+              value={price}
+              onChange={e => setPrice(e.target.value)}
+            />
           </div>
         </div>
 
@@ -168,6 +202,8 @@ export function NewDish() {
             rows="5"
             placeholder="Fale brevemente sobre o prato, seus ingredientes e composição"
             id="description"
+            value={description}
+            onChange={e => setDescription(e.target.value)}
           ></textarea>
         </div>
 
