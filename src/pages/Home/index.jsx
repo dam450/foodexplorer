@@ -1,21 +1,26 @@
+import { useEffect, useState } from 'react';
 import { Banner, Container, Content, SliderWrapper } from './styles';
 
 import { Header } from '../../components/Header';
 import { Footer } from '../../components/Footer';
 import { Card } from '../../components/Card';
 import { Slider } from '../../components/Slider';
-import { useEffect, useState } from 'react';
 import { api } from '../../services/api';
+import { useSearch } from '../../hooks/search';
 
 export function Home() {
 
   const [ dishes, setDishes ] = useState();
   const [ categories, setCategories ] = useState([]);
 
+  const { searchValue } = useSearch();
+  console.log('searchValue: ', searchValue);
+
+  const query = searchValue === undefined ? '' : searchValue
 
   async function fetchDishes() {
     try {
-      const { data } = await api.get(`/dishes`);
+      const { data } = await api.get(`/dishes?search=${query}`);
       setDishes(data);
       console.log(data);
       console.log(dishes);
@@ -38,6 +43,10 @@ export function Home() {
     fetchDishes();
   }, []);
 
+  useEffect(() => {
+    fetchDishes();
+  }, [ searchValue ]);
+
   return (
     <Container>
       <Header />
@@ -51,6 +60,8 @@ export function Home() {
             </div>
           </div>
         </Banner>
+
+        {searchValue && <h3>buscando por: {searchValue}</h3>}
 
         {categories.map((category) => (
           <Slider title={category.name} key={`category:${category.id}`}>

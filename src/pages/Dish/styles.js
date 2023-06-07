@@ -19,20 +19,18 @@ export const Container = styled.div`
 `;
 
 export const Content = styled.div`
-  padding-block: 10px;
-  margin-inline: 56px;
-
-  border: 1px dotted red;
+  padding-block: 1rem;
+  margin-inline: 5.6rem;
 
   height: 100%;
   grid-area: Content;
 
   display: flex;
   flex-direction: column;
-  gap: 24px;
+  gap: 2.4rem;
 
   ${DEVICE.lg} {
-    margin-inline: 120px;
+    margin-inline: 12rem;
   }
 
   > a:first-child {
@@ -45,32 +43,29 @@ export const Content = styled.div`
     font-family: 'Poppins';
     font-style: normal;
     font-weight: 500;
-    font-size: 16px;
+    font-size: 1.6rem;
     line-height: 140%;
 
-    color: #e1e1e6;
+    color: ${({ theme }) => theme.COLORS.LIGHT_300};
 
     ${DEVICE.lg} {
-      font-size: 24px;
+      font-size: 2.4rem;
     }
   }
 
   .dish-wrapper {
-    border: 1px dotted orange;
-
-    /* display: flex; */
     flex-direction: column;
     align-items: center;
     align-content: center;
     justify-content: center;
-    gap: 16px;
+    gap: 1.6rem;
 
     text-align: center;
 
     .dish-preview {
       display: block;
-      border: 1px dashed blue;
-      max-width: 264px;
+
+      max-width: 26.4rem;
       aspect-ratio: 1 / 1;
       margin: 0 auto;
       > img {
@@ -91,26 +86,26 @@ export const Content = styled.div`
       font-family: 'Poppins';
       font-style: normal;
       font-weight: 500;
-      font-size: 27px;
+      font-size: 2.7rem;
       line-height: 140%;
 
-      color: #e1e1e6;
+      color: ${({ theme }) => theme.COLORS.LIGHT_300};
     }
 
     .info > p {
       font-family: 'Poppins';
       font-style: normal;
       font-weight: 400;
-      font-size: 16px;
+      font-size: 1.6rem;
       line-height: 140%;
 
-      color: #e1e1e6;
+      color: ${({ theme }) => theme.COLORS.LIGHT_300};
     }
 
     .tags {
       display: flex;
       flex-wrap: wrap;
-      border: 1px dotted green;
+
       width: 100%;
       justify-content: center;
       }
@@ -119,13 +114,13 @@ export const Content = styled.div`
       display: flex;
       flex: 1;
       justify-content: center;
-      gap: 16px;
+      gap: 1.6rem;
     }
 
     ${DEVICE.lg} {
       display: flex;
       flex-direction: row;
-      gap: 48px;
+      gap: 4.8rem;
       height: 100%;
 
       text-align: left;
@@ -133,7 +128,7 @@ export const Content = styled.div`
       .dish-preview {
         margin: unset;
         width: 100%;
-        max-width: 390px;
+        max-width: 39rem;
 
         img {
           width: 100%;
