@@ -15,6 +15,7 @@ import exitImg from '../../assets/exit.svg';
 import { Input } from '../Input';
 import { Button } from '../Button';
 import { useAuth } from '../../hooks/auth';
+import { useSearch } from '../../hooks/search';
 
 export function Header() {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -22,17 +23,19 @@ export function Header() {
 
   const { signOut, user } = useAuth();
 
+  const { setSearch } = useSearch();
+
   const navigate = useNavigate();
 
-  function handleMenu() {
-    if (menuOpen) {
-      document.getElementById('menu-img').src = openMenuImg;
-      setMenuOpen(false);
-    } else {
-      document.getElementById('menu-img').src = closeMenuImg;
-      setMenuOpen(true);
-    }
-  }
+  // function handleMenu() {
+  //   if (menuOpen) {
+  //     document.getElementById('menu-img').src = openMenuImg;
+  //     setMenuOpen(false);
+  //   } else {
+  //     document.getElementById('menu-img').src = closeMenuImg;
+  //     setMenuOpen(true);
+  //   }
+  // }
 
   function handleSignOut() {
     navigate('/');
@@ -67,7 +70,9 @@ export function Header() {
 
           <Input
             placeholder="Busque por pratos ou ingredientes"
+            type='search'
             Icon={FiSearch}
+            onChange={(e) => setSearch(e.target.value)}
           />
 
           {user.admin ? (
