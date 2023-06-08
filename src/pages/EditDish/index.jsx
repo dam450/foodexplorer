@@ -48,21 +48,14 @@ export function EditDish() {
   }
 
   async function handleDelete(id) {
-
-    alert(`Deleted ${id} `);
     const { status } = await api.delete(`/dishes/${id}`);
 
-    console.log('delete: ', status);
-
-    // TODO: redirecionar home
+    alert(`Prato ${id} deletado!`);
+    navigate('/');
   }
 
   async function handleSubmit() {
 
-    // TODO: redirecionar home
-
-    console.log('category_id:');
-    console.log(dishCategory);
     switch (true) {
       case name === '':
         return alert('informe o nome do prato.');
@@ -81,17 +74,17 @@ export function EditDish() {
 
     const { data: savedDish } = await api.put(`/dishes/${id}`, dishUpdate);
 
-    console.log('savedDish: ', savedDish);
-
-    // const { id } = savedDish;
 
     if (dishImageFile && id) {
       const fileUploadForm = new FormData();
       fileUploadForm.append('picture', dishImageFile);
 
-      const response = await api.patch(`/dishes/${id}/picture`, fileUploadForm);
+      await api.patch(`/dishes/${id}/picture`, fileUploadForm);
     }
-    alert('prato salvo!');
+
+    alert(`prato ${id} salvo!`);
+
+    navigate('/');
   }
 
   function handleImageKeypress(event) {

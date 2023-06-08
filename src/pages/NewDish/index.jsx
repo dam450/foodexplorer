@@ -1,5 +1,5 @@
 import { useEffect, useState, useRef } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 import { Container, Content, LightButton } from './styles';
 
@@ -14,6 +14,7 @@ import { NewTag } from '../../components/NewTag';
 import { api } from '../../services/api';
 
 export function NewDish() {
+  const navigate = useNavigate();
 
   const [ dishImageFile, setDishImageFile ] = useState(null);
   const [ imgNameDisplay, setImgNameDisplay ] = useState('Selecione imagem');
@@ -23,7 +24,6 @@ export function NewDish() {
   const [ newIngredient, setNewIngredient ] = useState('');
 
   const [ categories, setCategories ] = useState([]);
-
   const [ name, setName ] = useState('');
   const [ dishCategory, setDishCategory ] = useState('');
   const [ price, setPrice ] = useState('');
@@ -35,7 +35,6 @@ export function NewDish() {
   }
 
   function handleAddIngredient() {
-    // console.log('tags:', tags)
 
     if (!newIngredient) return;
     if (ingredients.includes(newIngredient.trim())) return setNewIngredient('');
@@ -46,7 +45,6 @@ export function NewDish() {
 
   async function handleSubmit() {
     console.log('ingredients: ', ingredients)
-    alert('enviei');
 
     const newDish = {};
 
@@ -67,8 +65,11 @@ export function NewDish() {
       const fileUploadForm = new FormData();
       fileUploadForm.append('picture', dishImageFile);
 
-      const response = await api.patch(`/dishes/${id}/picture`, fileUploadForm);
+      await api.patch(`/dishes/${id}/picture`, fileUploadForm);
     }
+
+    alert('Prato salvo!');
+    navigate('/')
   }
 
   function handleImageKeypress(event) {
@@ -80,11 +81,6 @@ export function NewDish() {
     const file = event.target.files[ 0 ];
     setDishImageFile(file);
     setImgNameDisplay(file.name);
-
-    console.log('file', file);
-
-    // const imagePreview = URL.createObjectURL(file);
-    // setAvatar(imagePreview);
 
   }
 
