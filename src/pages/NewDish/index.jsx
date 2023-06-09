@@ -1,5 +1,5 @@
 import { useEffect, useState, useRef } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 import { Container, Content, LightButton } from './styles';
 
@@ -10,20 +10,21 @@ import { Footer } from '../../components/Footer';
 import { Header } from '../../components/Header';
 import { Input } from '../../components/Input';
 import { NewTag } from '../../components/NewTag';
+import { InputCurrency } from '../../components/InputCurrency';
 
 import { api } from '../../services/api';
 
 export function NewDish() {
+  const navigate = useNavigate();
 
   const [ dishImageFile, setDishImageFile ] = useState(null);
   const [ imgNameDisplay, setImgNameDisplay ] = useState('Selecione imagem');
-  const addNew = useRef(null);
+  // const addNew = useRef(null);
 
   const [ ingredients, setIngredients ] = useState([]);
   const [ newIngredient, setNewIngredient ] = useState('');
 
   const [ categories, setCategories ] = useState([]);
-
   const [ name, setName ] = useState('');
   const [ dishCategory, setDishCategory ] = useState('');
   const [ price, setPrice ] = useState('');
@@ -35,8 +36,6 @@ export function NewDish() {
   }
 
   function handleAddIngredient() {
-    // console.log('tags:', tags)
-
     if (!newIngredient) return;
     if (ingredients.includes(newIngredient.trim())) return setNewIngredient('');
 
@@ -45,21 +44,22 @@ export function NewDish() {
   }
 
   async function handleSubmit() {
-    console.log('ingredients: ', ingredients)
-    alert('enviei');
 
-    const newDish = {};
+    if (newIngredient)
+      return alert('Existe um ingrediente não adicionado.\nInclua-o ou deixe o campo vazio.')
 
-    newDish.name = name;
-    newDish.category_id = dishCategory;
-    newDish.description = description;
-    newDish.price = price;
-    newDish.ingredients = ingredients;
+    if (!name || !dishCategory || !price)
+      return alert('Informe pelo menos Nome, categoria e preço do prato.')
 
-    console.log('newDish: ', newDish);
+    const newDish = {
+      name,
+      category_id: dishCategory,
+      description,
+      price: Number(price.replace(',', '.')),
+      ingredients
+    };
 
     const { data: savedDish } = await api.post(`/dishes`, newDish);
-    console.log('newItem: ', savedDish.id);
 
     const { id } = savedDish;
 
@@ -67,8 +67,11 @@ export function NewDish() {
       const fileUploadForm = new FormData();
       fileUploadForm.append('picture', dishImageFile);
 
-      const response = await api.patch(`/dishes/${id}/picture`, fileUploadForm);
+      await api.patch(`/dishes/${id}/picture`, fileUploadForm);
     }
+
+    alert('Prato salvo!');
+    navigate('/')
   }
 
   function handleImageKeypress(event) {
@@ -80,12 +83,6 @@ export function NewDish() {
     const file = event.target.files[ 0 ];
     setDishImageFile(file);
     setImgNameDisplay(file.name);
-
-    console.log('file', file);
-
-    // const imagePreview = URL.createObjectURL(file);
-    // setAvatar(imagePreview);
-
   }
 
   async function fetchCategories() {
@@ -150,11 +147,9 @@ export function NewDish() {
                   <option value={c.id} key={`${c.id}-${c.name}`}>{c.name}</option>
                 ))}
               </select>
-              {/* <div className='icon-container'>
-                <img src={ChevronDown} alt="" />
-              </div> */}
+
             </div>
-            {/* <select type="text" placeholder="Refeição" id="dish-category" /> */}
+
           </div>
         </div>
 
@@ -188,10 +183,11 @@ export function NewDish() {
         </div>
 
           <div className="input-wrapper price">
-          <label htmlFor="price">Preço</label>
-            <Input type="number" placeholder="R$ 00,00" id="price" altcolor
+            <label htmlFor="price">Preço</label>
+            <InputCurrency altcolor
+              placeholder="R$ 00,00"
               value={price}
-              onChange={e => setPrice(e.target.value)}
+              onValueChange={(value) => setPrice(value?.replace(',', '.'))}
             />
           </div>
         </div>
