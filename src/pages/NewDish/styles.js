@@ -65,7 +65,6 @@ export const Content = styled.div`
   }
 
   .input-wrapper {
-    /* margin-bottom: 1.6rem; */
 
     label {
       font-family: 'Roboto';
@@ -122,7 +121,6 @@ export const Content = styled.div`
     }
 
     .ingredients-list {
-      /* border: 1px dotted green;      remove */
 
       display: flex;
       flex-direction: row;
@@ -136,9 +134,6 @@ export const Content = styled.div`
       width: 100%;
       min-height: 48px;
 
-      /* Dark/Dark 800
-      #0D161B
-      */
       background:  ${({ theme }) => theme.COLORS.DARK_800};
       border-radius: 8px;
 
@@ -147,7 +142,6 @@ export const Content = styled.div`
     textarea {
       display: block;
       width: 100%;
-
       resize: none;
 
       background-color: ${({ theme }) => theme.COLORS.DARK_800};
@@ -188,7 +182,7 @@ export const Content = styled.div`
         color: ${({ theme }) => theme.COLORS.LIGHT_500};
 
         cursor: pointer;
-        padding-right: 40px;
+        padding-right: 4rem;
 
         font-family: 'Roboto';
         font-style: normal;
@@ -199,7 +193,7 @@ export const Content = styled.div`
         background-image: url(${ChevronDown});
         background-repeat: no-repeat;
         background-size: 2.4rem;
-        background-position: bottom 50% right 16px; ;
+        background-position: bottom 50% right 1.6rem; ;
       }
     }
 

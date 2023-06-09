@@ -10,9 +10,9 @@ import { Footer } from '../../components/Footer';
 import { Header } from '../../components/Header';
 import { Input } from '../../components/Input';
 import { NewTag } from '../../components/NewTag';
+import { InputCurrency } from '../../components/InputCurrency';
 
 import { api } from '../../services/api';
-import { Button } from '../../components/Button';
 
 export function EditDish() {
 
@@ -31,7 +31,7 @@ export function EditDish() {
   const [ newIngredient, setNewIngredient ] = useState('');
   const [ name, setName ] = useState('');
   const [ dishCategory, setDishCategory ] = useState('');
-  const [ price, setPrice ] = useState('');
+  const [ price, setPrice ] = useState(0);
   const [ description, setDescription ] = useState('');
 
   function handleRemoveIngredient(tag) {
@@ -65,12 +65,13 @@ export function EditDish() {
         return alert('informe o preço');
     }
 
-    const dishUpdate = {};
-    dishUpdate.name = name;
-    dishUpdate.category_id = dishCategory;
-    dishUpdate.description = description;
-    dishUpdate.price = price;
-    dishUpdate.ingredients = ingredients;
+    const dishUpdate = {
+      name,
+      category_id: dishCategory,
+      description,
+      price: isNaN(price) ? Number(price?.replace(',', '.')) : price,
+      ingredients
+    };
 
     const { data: savedDish } = await api.put(`/dishes/${id}`, dishUpdate);
 
@@ -214,9 +215,10 @@ export function EditDish() {
 
           <div className="input-wrapper price">
             <label htmlFor="price">Preço</label>
-            <Input type="number" placeholder="R$ 00,00" id="price" altcolor
+            <InputCurrency altcolor
+              placeholder="R$ 00,00"
               value={price}
-              onChange={e => setPrice(e.target.value)}
+              onValueChange={(value) => setPrice(value)}
             />
           </div>
         </div>
