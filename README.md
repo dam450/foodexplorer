@@ -54,7 +54,7 @@ Para efetuar login na aplicação, utilize as credenciais abaixo:
 ### 🏗️ Deploy local
 
 1 - Para executar o projeto localmente é necessário que primeiro seja feito o deploy do backend da aplicação, acesse o repositório
-[Github.com/dam450/foodexplorer-api](https://github.com/dam450/foodexplorer-api#readme) e siga as instruções de deploy local.
+[Github.com/dam450/foodexplorer-api](https://github.com/dam450/foodexplorer-api#%EF%B8%8F-deploy-local) e siga as instruções de deploy local.
 
 2 - Faça o clone do projeto em uma pasta local através do prompt de terminal:
 ```bash
@@ -79,7 +79,7 @@ npm run dev
 ## 🔙 Backend
 
 O backend desta aplicação encontra-se no repositório: 
-- [https://github.com/dam450/foodexplorer-api](Github.com/dam450/foodexplorer-api)
+- [Github.com/dam450/foodexplorer-api](https://github.com/dam450/foodexplorer-api)
 
 ## 🦾 Tecnologias
 
