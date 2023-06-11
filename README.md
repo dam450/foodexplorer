@@ -6,11 +6,16 @@
 
 <p align="center">
   <a href="#memo-licença">
-    <img alt="License" src="https://img.shields.io/static/v1?label=license&message=MIT&color=49AA26&labelColor=000000">
+    <img alt="License" src="https://img.shields.io/static/v1?style=flat&label=license&message=MIT&color=4AF2C3">
   </a>
-    <a href="https://app.netlify.com/sites/foodexplorer-dam450/deploys">
-    <img alt="License" src="https://api.netlify.com/api/v1/badges/c5365dc5-820c-429f-a26e-5b9f238cc0b9/deploy-status">
+  
+  <a href="https://app.netlify.com/sites/foodexplorer-dam450/deploys">
+    <img alt="netlify" src="https://api.netlify.com/api/v1/badges/c5365dc5-820c-429f-a26e-5b9f238cc0b9/deploy-status">
   </a>
+  
+  <a href="#-backend">
+    <img alt="render" src="https://img.shields.io/website?down_color=lightgrey&down_message=deploy&label=render&logo=render&logoColor=4AF2C3&style=flat&up_color=4AF2C3&up_message=online&url=https%3A%2F%2Ffoodexplorer-api-owmn.onrender.com%2F">
+  </a> 
 </p>
 
 
