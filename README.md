@@ -1,6 +1,6 @@
 <h1 align="center">
   <a href="#-deploy" target="_blank">
-    <img alt="Food Explorer" src=".github/logo.png" width="100%">
+    <img alt="Food Explorer" src=".github/logo.svg" width="100%">
   </a>
 </h1>
 
