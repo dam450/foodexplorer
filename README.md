@@ -27,8 +27,8 @@ Frontend do projeto Food Explorer</p>
   <a href="#-backend">Backend</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
   <a href="#-tecnologias">Tecnologias</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
   <a href="#-projeto">Projeto</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
-  <a href="#-layout">Layout</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
-  <a href="#memo-licença">Licença</a>
+  <a href="#-layout">Layout</a>
+<!--   <a href="#memo-licença">Licença</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp; -->
 </p>
 
 
@@ -58,23 +58,26 @@ Para efetuar login na aplicação, utilize as credenciais abaixo:
 
 ### 🏗️ Deploy local
 
-1 - Para executar o projeto localmente é necessário que primeiro seja feito o deploy do backend da aplicação, acesse o repositório
+1. Para executar o projeto localmente é necessário que primeiro seja feito o deploy do backend da aplicação, acesse o repositório
 [Github.com/dam450/foodexplorer-api](https://github.com/dam450/foodexplorer-api#%EF%B8%8F-deploy-local) e siga as instruções de deploy local.
 
-2 - Faça o clone do projeto em uma pasta local através do prompt de terminal:
+2. Faça o clone do projeto em uma pasta local através do prompt de terminal:
 ```bash
 git clone https://github.com/dam450/foodexplorer.git
 ```
-3 - Acesse a pasta e depois instale as dependencias do projeto:
+3. Acesse a pasta:
 ```bash
 cd foodexplorer
+```
+4. Instale as dependencias do projeto
+```bash
 npm install
 ```
-4 - Execute o servidor da aplicação:
+5. Execute o servidor da aplicação:
 ```bash
 npm run dev
 ```
-5 - acesse o endereço de *localhost* que é mostrado no prompt, conforme o exemplo abaixo
+6. Acesse o endereço de *localhost* que é mostrado no prompt, conforme o exemplo abaixo
 ```
   VITE v4.2.1  ready in 4478 ms
 
@@ -113,5 +116,32 @@ O layout Figma do projeto pode ser visualizado através do seguinte link:
 Esse projeto está sob a licença MIT.
 
 ---
+## Autor  
 
-> Criado por [**Dam450**](https://github.com/dam450/).
+<a href="https://github.com/dam450/">
+    <img alt="github dam450" src="https://img.shields.io/static/v1?style=social&logo=github&label=github&message=dam450&color=4AF2C3">
+</a> 
+
+
+## Contatos  
+
+  <a href="https://www.linkedin.com/in/evandro-damaso/">
+    <img alt="linkedin.com" src="https://img.shields.io/static/v1?style=social&logo=linkedin&label=linkedin&message=evandro-damaso">
+  </a> 
+  <br/><br/>
+  <a href="mailto:dam450.dev@gmail.com">
+    <img alt="gmail.com" src="https://img.shields.io/static/v1?style=social&logo=gmail&label=gmail&message=dam450.dev@gmail.com">
+  </a> 
+  <br/><br/>
+  <a href="http://discordapp.com/users/547738105331843077/">
+    <img alt="discordapp.com" src="https://img.shields.io/static/v1?style=social&logo=discord&label=discord&message=Evandro%20Damaso">
+  </a>
+
+
+<!--   <a href="https://github.com/dam450/">
+    <img alt="github dam450" src="https://img.shields.io/static/v1?style=social&logo=github&label=github&message=dam450&color=4AF2C3">
+  </a> 
+  <a href="#-deploy">
+    <img alt="Render.com" src="https://img.shields.io/static/v1?style=social&logo=linkedin&label=linkedin&message=evandro-damaso&color=4AF2C3">
+  </a> 
+    -->
