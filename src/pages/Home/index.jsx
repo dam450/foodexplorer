@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Banner, Container, Content, SliderWrapper } from './styles';
+import { MdOutlineSearchOff } from 'react-icons/md'
 
 import { Header } from '../../components/Header';
 import { Footer } from '../../components/Footer';
@@ -13,7 +14,7 @@ export function Home() {
   const [ dishes, setDishes ] = useState();
   const [ categories, setCategories ] = useState([]);
 
-  const { searchValue } = useSearch();
+  const { searchValue, setSearch } = useSearch();
   console.log('searchValue: ', searchValue);
 
   const query = searchValue === undefined ? '' : searchValue
@@ -61,7 +62,12 @@ export function Home() {
           </div>
         </Banner>
 
-        {searchValue && <h3>buscando por: {searchValue}</h3>}
+        {searchValue && (
+          <div className='search-hint'>
+            <div className='hint'>Buscando por: <em>{searchValue}</em></div>
+            <MdOutlineSearchOff size={24} onClick={() => setSearch('')} />
+          </div>
+        )}
 
         {categories.map((category) => (
           <Slider title={category.name} key={`category:${category.id}`}>

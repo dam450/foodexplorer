@@ -28,6 +28,35 @@ export const Content = styled.div`
   grid-area: Content;
   max-width: 100%;
   overflow-x: hidden;
+
+  > .search-hint {
+    width: min(95vw, 1122px);
+    margin: 0 auto 24px;
+    display: flex;
+    gap: 1.5rem;
+    letter-spacing: 1px;
+    color:  ${({ theme }) => theme.COLORS.LIGHT_500};
+
+    svg {
+      cursor: pointer;
+      transition: transform 200ms, fill 500ms;
+      &:hover{
+        fill: ${({ theme }) => theme.COLORS.TOMATO_200};
+        transform: scale(1.1);
+      }
+    }
+
+    .hint {
+      display: flex;
+      align-items: center;
+      font-size: 1.8rem;
+
+      em {
+        margin-left: 1.5rem;
+        color: ${({ theme }) => theme.COLORS.CAKE_100};
+      }
+    }
+  }
 `;
 
 export const Banner = styled.div`
