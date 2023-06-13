@@ -11,6 +11,7 @@ import { Header } from '../../components/Header';
 import { Input } from '../../components/Input';
 import { NewTag } from '../../components/NewTag';
 import { InputCurrency } from '../../components/InputCurrency';
+import { Modal } from '../../components/Modal';
 
 import { api } from '../../services/api';
 
@@ -25,6 +26,8 @@ export function EditDish() {
   const [ dishImageFile, setDishImageFile ] = useState(null);
   const [ imgNameDisplay, setImgNameDisplay ] = useState('Selecione imagem');
 
+  const [ isModalOpen, setModalOpen ] = useState(false);
+
   // const addNew = useRef(null);
 
   const [ ingredients, setIngredients ] = useState([]);
@@ -33,6 +36,14 @@ export function EditDish() {
   const [ dishCategory, setDishCategory ] = useState('');
   const [ price, setPrice ] = useState(0);
   const [ description, setDescription ] = useState('');
+
+  function openModal() {
+    setModalOpen(true);
+  }
+
+  function closeModal() {
+    setModalOpen(false);
+  }
 
   function handleRemoveIngredient(tag) {
     const filteredTags = ingredients.filter(t => t !== tag);
@@ -235,9 +246,20 @@ export function EditDish() {
         </div>
 
         <div className="buttons">
-          <DarkButton onClick={() => handleDelete(id)} className="button delete" >Excluir prato</DarkButton>
+          <DarkButton onClick={openModal} className="button delete" >Excluir prato</DarkButton>
           <TomatoButton onClick={handleSubmit} className="button save" >Salvar alterações</TomatoButton>
         </div>
+
+        <Modal isOpen={isModalOpen} close={closeModal}>
+          <div>
+            <h3 className='modal-title'>Excluir prato</h3>
+            <p className='modal-message'>Tem certeza que deseja excluir este prato?</p>
+          </div>
+          <div className='buttons'>
+            <DarkButton onClick={closeModal} >Cancelar</DarkButton>
+            <TomatoButton onClick={() => handleDelete(id)}>Excluir</TomatoButton>
+          </div>
+        </Modal>
 
       </Content>
       <Footer />
