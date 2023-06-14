@@ -1,9 +1,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
+import { Toaster } from 'react-hot-toast';
 import { ThemeProvider } from 'styled-components';
 
-import theme from './styles/theme';
 import { GlobalStyle } from './styles/global';
+import theme from './styles/theme';
 
 import { Routes } from './routes';
 import { AuthProvider } from './hooks/auth';
@@ -18,6 +19,13 @@ ReactDOM.createRoot(document.getElementById('root')).render(
           <Routes />
         </SearchProvider>
       </AuthProvider>
+      <Toaster toastOptions={{
+        duration: 2000,
+        style: {
+          padding: '16px',
+          fontSize: '16px'
+        },
+      }} />
     </ThemeProvider>
   </React.StrictMode>
 );

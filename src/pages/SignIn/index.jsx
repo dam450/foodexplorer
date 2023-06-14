@@ -1,4 +1,5 @@
 import { useState, useRef } from 'react';
+import toast from 'react-hot-toast';
 
 import { Container } from './styles';
 
@@ -17,12 +18,16 @@ export function SignIn() {
 
   async function handleSignIn(event) {
     event.preventDefault();
-    if (!email || !password) return alert('Por favor, informe email e senha!');
+    if (!email || !password)
+      return toast.error('Por favor, informe e-mail e senha!', { id: 'missingInfo' });
+
     setLoading(true);
     loginButton.current.disabled = true;
+    const toastId = toast.loading('Aguarde...');
     await signIn({ email, password });
     setLoading(false);
     loginButton.current.disabled = false;
+    toast.dismiss(toastId);
   }
 
   return (

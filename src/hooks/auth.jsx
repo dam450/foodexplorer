@@ -2,6 +2,7 @@ import { createContext, useContext, useEffect, useState } from 'react';
 import { api } from '../services/api';
 import { useLocalStorage } from './localStorage';
 import { decodeJwt } from '../utils/jwt';
+import { toast } from 'react-hot-toast';
 
 const AuthContext = createContext({});
 
@@ -11,13 +12,9 @@ function AuthProvider({ children }) {
   const [storedToken, setStoredToken, delStoredToken] = useLocalStorage('@foodexplorer:token');
   const [storedUser, setStoredUser, delStoredUser] = useLocalStorage('@foodexplorer:user');
 
-  //console.log('stored:', storedToken, storedUser);
-
   async function signIn({ email, password }) {
     try {
       const response = await api.post('/sessions', { email, password });
-
-      //console.log(response.data);
 
       const { token, user } = response.data;
 
@@ -28,9 +25,9 @@ function AuthProvider({ children }) {
       setStoredUser(user);
     } catch (error) {
       if (error.response) {
-        alert(error.response.data.message);
+        toast.error(error.response.data.message, { id: 'error' });
       } else {
-        alert('Não foi possível fazer login');
+        toast.error('Não foi possível fazer login', { id: 'error' });
       }
     }
   }
