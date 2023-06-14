@@ -1,19 +1,28 @@
+import { useState, useRef } from 'react';
+
 import { Container } from './styles';
 
 import logo from '../../assets/logo.svg';
 import { Button } from '../../components/Button';
 import { Input } from '../../components/Input';
 import { useAuth } from '../../hooks/auth';
-import { useState } from 'react';
 
 export function SignIn() {
   const { signIn } = useAuth();
   const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [ password, setPassword ] = useState('');
 
-  function handleSignIn(event) {
+  const [ isLoading, setLoading ] = useState(false);
+  const loginButton = useRef(null);
+
+  async function handleSignIn(event) {
     event.preventDefault();
-    signIn({ email, password });
+    if (!email || !password) return alert('Por favor, informe email e senha!');
+    setLoading(true);
+    loginButton.current.disabled = true;
+    await signIn({ email, password });
+    setLoading(false);
+    loginButton.current.disabled = false;
   }
 
   return (
@@ -44,7 +53,11 @@ export function SignIn() {
             onChange={(e) => setPassword(e.target.value)}
           />
 
-          <Button type="submit" onClick={handleSignIn}>
+          <Button
+            type="submit"
+            ref={loginButton}
+            loading={isLoading}
+            onClick={handleSignIn}>
             Entrar
           </Button>
         </form>

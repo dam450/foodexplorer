@@ -23,7 +23,7 @@ export function Header() {
 
   const { signOut, user } = useAuth();
 
-  const { setSearch } = useSearch();
+  const { setSearch, searchValue } = useSearch();
 
   const navigate = useNavigate();
 
@@ -72,6 +72,7 @@ export function Header() {
             placeholder="Busque por pratos ou ingredientes"
             type='search'
             Icon={FiSearch}
+            value={searchValue}
             onChange={(e) => setSearch(e.target.value)}
           />
 
