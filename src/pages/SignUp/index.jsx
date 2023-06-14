@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import { Container } from './styles';
@@ -12,7 +12,10 @@ import { api } from '../../services/api';
 export function SignUp() {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [ password, setPassword ] = useState('');
+
+  const [ isLoading, setLoading ] = useState(false);
+  const submitButton = useRef(null);
 
   const navigate = useNavigate();
 
@@ -21,11 +24,16 @@ export function SignUp() {
 
     if (!name || !email || !password) return alert('Por favor, preencha todos os campos!');
 
+
+    setLoading(true);
+    submitButton.current.disabled = true;
+
     api
       .post('/users', { name, email, password })
       .then(() => {
         alert('Usuário cadastrado com sucesso');
         navigate('/');
+
       })
       .catch((err) => {
         if (err.response) {
@@ -33,6 +41,8 @@ export function SignUp() {
         } else {
           alert('Não foi possível cadastrar o usuário');
         }
+        setLoading(false);
+        submitButton.current.disabled = false;
       });
   }
 
@@ -73,7 +83,12 @@ export function SignUp() {
             onChange={(e) => setPassword(e.target.value)}
           />
 
-          <Button type="submit" onClick={handleSignUp}>
+          <Button
+            type="submit"
+            onClick={handleSignUp}
+            ref={submitButton}
+            loading={isLoading}
+          >
             Criar conta
           </Button>
         </form>
