@@ -1,5 +1,6 @@
 import { useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-hot-toast';
 
 import { Container } from './styles';
 import { Button } from '../../components/Button';
@@ -22,24 +23,24 @@ export function SignUp() {
   function handleSignUp(event) {
     event.preventDefault();
 
-    if (!name || !email || !password) return alert('Por favor, preencha todos os campos!');
-
+    if (!name || !email || !password)
+      return toast.error('Por favor, preencha todos os campos!', { id: 'missingInfo' });
 
     setLoading(true);
     submitButton.current.disabled = true;
+    toast.loading('Criando usuário, aguarde...', { id: 'newUser' });
 
     api
       .post('/users', { name, email, password })
       .then(() => {
-        alert('Usuário cadastrado com sucesso');
+        toast.success('Usuário cadastrado com sucesso!', { id: 'newUser' });
         navigate('/');
-
       })
       .catch((err) => {
         if (err.response) {
-          alert(err.response.data.message);
+          toast.error(err.response.data.message, { id: 'newUser' });
         } else {
-          alert('Não foi possível cadastrar o usuário');
+          toast.error('Não foi possível cadastrar o usuário.', { id: 'newUser' });
         }
         setLoading(false);
         submitButton.current.disabled = false;
