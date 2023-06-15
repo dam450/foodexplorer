@@ -1,5 +1,6 @@
 import { useEffect, useState, useRef } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+import { toast } from 'react-hot-toast';
 
 import { Container, Content, LightButton } from './styles';
 
@@ -15,8 +16,6 @@ import { InputCurrency } from '../../components/InputCurrency';
 import { api } from '../../services/api';
 
 export function NewDish() {
-  const navigate = useNavigate();
-
   const [ dishImageFile, setDishImageFile ] = useState(null);
   const [ imgNameDisplay, setImgNameDisplay ] = useState('Selecione imagem');
 
@@ -28,6 +27,8 @@ export function NewDish() {
   const [ dishCategory, setDishCategory ] = useState('');
   const [ price, setPrice ] = useState('');
   const [ description, setDescription ] = useState('');
+
+  const navigate = useNavigate();
 
   function handleRemoveIngredient(tag) {
     const filteredTags = ingredients.filter(t => t !== tag);
@@ -45,10 +46,10 @@ export function NewDish() {
   async function handleSubmit() {
 
     if (newIngredient)
-      return alert('Existe um ingrediente não adicionado.\nInclua-o ou deixe o campo vazio.')
+      return toast.error('Existe um valor de ingrediente não adicionado. Clique para incluir ou deixe-o vazio.', { id: 'ingredient' });
 
     if (!name || !dishCategory || !price)
-      return alert('Informe pelo menos Nome, categoria e preço do prato.')
+      return toast.error('Informe pelo menos Nome, categoria e preço do prato.', { id: 'mandatory' });
 
     const newDish = {
       name,
@@ -58,19 +59,24 @@ export function NewDish() {
       ingredients
     };
 
-    const { data: savedDish } = await api.post(`/dishes`, newDish);
+    toast.loading('Salvando prato...', { id: newDish });
 
-    const { id } = savedDish;
+    try {
+      const { data: savedDish } = await api.post(`/dishes`, newDish);
 
-    if (dishImageFile && id) {
-      const fileUploadForm = new FormData();
-      fileUploadForm.append('picture', dishImageFile);
+      const { id } = savedDish;
 
-      await api.patch(`/dishes/${id}/picture`, fileUploadForm);
+      if (dishImageFile && id) {
+        const fileUploadForm = new FormData();
+        fileUploadForm.append('picture', dishImageFile);
+
+        await api.patch(`/dishes/${id}/picture`, fileUploadForm);
+      }
+      toast.success('Prato salvo com sucesso!', { id: newDish });
+      navigate('/');
+    } catch (error) {
+      toast.error('Erro ao salvar o prato.', { id: newDish });
     }
-
-    alert('Prato salvo!');
-    navigate('/')
   }
 
   function handleImageKeypress(event) {
