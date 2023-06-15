@@ -19,7 +19,6 @@ export function NewDish() {
 
   const [ dishImageFile, setDishImageFile ] = useState(null);
   const [ imgNameDisplay, setImgNameDisplay ] = useState('Selecione imagem');
-  // const addNew = useRef(null);
 
   const [ ingredients, setIngredients ] = useState([]);
   const [ newIngredient, setNewIngredient ] = useState('');
@@ -138,11 +137,11 @@ export function NewDish() {
           <div className="input-wrapper category">
             <label htmlFor="dish-category">Categoria</label>
             <div className='select-container'>
-              <select name="categoria" id="dish-category"
+              <select name="categoria" id="dish-category" required
                 value={dishCategory}
                 onChange={e => setDishCategory(e.target.value)}
               >
-                <option value="" disabled>Escolha a categoria</option>
+                <option value="" disabled hidden>Escolha a categoria</option>
                 {categories && categories.map(c => (
                   <option value={c.id} key={`${c.id}-${c.name}`}>{c.name}</option>
                 ))}
@@ -156,7 +155,7 @@ export function NewDish() {
         <div className='input-row'>
           <div className="input-wrapper ingredients">
           <label htmlFor="ingredients">Ingredientes</label>
-            {/* <Input type="text" placeholder="Pão Naan" id="ingredients" /> */}
+
             <div className='ingredients-list'>
 
               {ingredients.length > 0 &&

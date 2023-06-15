@@ -122,8 +122,6 @@ export const Content = styled.div`
     }
 
     .ingredients-list {
-      /* border: 1px dotted green;      remove */
-
       display: flex;
       flex-direction: row;
       align-items: center;
@@ -136,9 +134,6 @@ export const Content = styled.div`
       width: 100%;
       min-height: 48px;
 
-      /* Dark/Dark 800
-      #0D161B
-      */
       background:  ${({ theme }) => theme.COLORS.DARK_800};
       border-radius: 8px;
 
@@ -147,11 +142,10 @@ export const Content = styled.div`
     textarea {
       display: block;
       width: 100%;
-
       resize: none;
 
       background-color: ${({ theme }) => theme.COLORS.DARK_800};
-      color: ${({ theme }) => theme.COLORS.LIGHT_500};
+      color: ${({ theme }) => theme.COLORS.LIGHT_100};
       border: none;
       padding: 1.4rem;
       border-radius: 0.8rem;
@@ -161,6 +155,10 @@ export const Content = styled.div`
       font-weight: 400;
       font-size: 1.6rem;
       line-height: 100%;
+
+      &::placeholder {
+        color: ${({ theme }) => theme.COLORS.LIGHT_500};
+      }
     }
 
     .select-container {
@@ -185,7 +183,7 @@ export const Content = styled.div`
         min-height: 4.8rem;
         padding: 1.4rem;
         background-color: ${({ theme }) => theme.COLORS.DARK_800};
-        color: ${({ theme }) => theme.COLORS.LIGHT_500};
+        color: ${({ theme }) => theme.COLORS.LIGHT_100};
 
         cursor: pointer;
         padding-right: 40px;
@@ -199,7 +197,15 @@ export const Content = styled.div`
         background-image: url(${ChevronDown});
         background-repeat: no-repeat;
         background-size: 2.4rem;
-        background-position: bottom 50% right 16px; ;
+        background-position: bottom 50% right 16px;
+
+        &:invalid {
+          color: ${({ theme }) => theme.COLORS.LIGHT_500};
+        }
+
+        option {
+          color: ${({ theme }) => theme.COLORS.LIGHT_100};
+        }
       }
     }
 
@@ -214,6 +220,13 @@ export const Content = styled.div`
     input[type=number] {
       -moz-appearance: textfield;
       appearance: textfield;
+    }
+
+    input {
+      color: ${({ theme }) => theme.COLORS.LIGHT_100};
+      &::placeholder {
+        color: ${({ theme }) => theme.COLORS.LIGHT_500};
+      }
     }
   }
 
