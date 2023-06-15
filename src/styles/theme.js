@@ -36,5 +36,7 @@ export default {
 
     GRADIENTS_TORIGHT: 'linear-gradient(to right, #000a0fee 0%, #000a0f55 100%)',
     GRADIENTS_TOLEFT: 'linear-gradient(to left, #000a0fee 0%, #000a0f55) 100%;',
+
+    MOBILE_MENU: 'linear-gradient(#001119 114px, #000a0f 114px)',
   },
 };
