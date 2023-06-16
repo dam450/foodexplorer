@@ -88,6 +88,7 @@ export const Container = styled.div`
     width: 88px;
     aspect-ratio: 1;
     margin-bottom: 12px;
+    border-radius: 50%;
   }
 
   .title {
