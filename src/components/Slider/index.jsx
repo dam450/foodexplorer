@@ -10,8 +10,6 @@ export function Slider({ title, children }) {
 
   if (hasNoChilds) return null;
 
-  // const onlyChild = childrenCount === 1;
-
   const [ currentSlide, setCurrentSlide ] = useState(0);
   const [ loaded, setLoaded ] = useState(false);
   const sliderConfig = {
@@ -63,17 +61,6 @@ export function Slider({ title, children }) {
   };
   const [ sliderRef, instanceRef ] = useKeenSlider(sliderConfig);
 
-  // if (onlyChild) {
-  //   return (
-  //     <Container className="slider-wrapper">
-  //       {title && <h2 className="title">{title}</h2>}
-  //       <div ref={sliderRef} className="keen-slider">
-  //         {children}
-  //       </div>
-  //     </Container>
-  //   );
-  // };
-
   return (
     <Container className="slider-wrapper">
       {title && <h2 className="title">{title}</h2>}
@@ -92,16 +79,11 @@ export function Slider({ title, children }) {
             onClick={(e) =>
               e.stopPropagation() || instanceRef.current?.prev()
             }
-            disabled={currentSlide === 0}
           />
 
           <Arrow
             onClick={(e) =>
               e.stopPropagation() || instanceRef.current?.next()
-            }
-            disabled={
-              currentSlide ===
-              instanceRef.current.track.details.slides.length - 2
             }
           />
         </>
@@ -112,15 +94,13 @@ export function Slider({ title, children }) {
 }
 
 function Arrow(props) {
-  const disabled = props.disabled ? " arrow--disabled" : "";
   return (
     <>
       {props.left && <div className="arrow-bg arrow--left"></div>}
       {!props.left && <div className="arrow-bg arrow--right"></div>}
       <svg
         onClick={props.onClick}
-        className={`arrow ${props.left ? "arrow--left" : "arrow--right"
-          } ${disabled}`}
+        className={`arrow ${props.left ? "arrow--left" : "arrow--right"}`}
         xmlns="http://www.w3.org/2000/svg"
         viewBox="0 0 40 40"
       >
