@@ -1,6 +1,6 @@
 import { DEVICE } from '../../styles/device';
 import styled from 'styled-components';
-import Heart from '../../assets/heart.svg';
+//import Heart from '../../assets/heart.svg';
 
 export const Container = styled.div`
   width: fit-content;
@@ -54,11 +54,10 @@ export const Container = styled.div`
 
     &:hover svg path {
       stroke: ${({ theme }) => theme.COLORS.LIGHT_500};
-      /* #7C7C8A; */
     }
   }
 
-    .edit {
+  .edit {
     border: none;
     margin: 16px;
     width: 24px;
@@ -169,8 +168,18 @@ export const Container = styled.div`
       line-height: 24px;
 
       width: 100%;
-      color:  ${({ theme }) => theme.COLORS.LIGHT_100};
+      color: ${({ theme }) => theme.COLORS.LIGHT_100};
     }
+    .centered {
+      width: 100%;
+      display: flex;
+      justify-content: center;
+    }
+
+  }
+
+  svg.icon path {
+    stroke: ${({ theme }) => theme.COLORS.LIGHT_300};
   }
 
   ${DEVICE.lg} {
