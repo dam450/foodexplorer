@@ -2,7 +2,6 @@ import { useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { FiSearch } from 'react-icons/fi'
 
-
 import { Container, SearchBox } from './styles';
 
 import openMenuImg from '../../assets/menu-open.svg';
@@ -11,18 +10,18 @@ import receiptImg from '../../assets/receipt.svg';
 import logoImg from '../../assets/logo.svg';
 import exitImg from '../../assets/exit.svg';
 
-
 import { Input } from '../Input';
 import { Button } from '../Button';
 import { useAuth } from '../../hooks/auth';
 import { useSearch } from '../../hooks/search';
 
+const cart = { items: 0 };
+
 export function Header() {
-  const [menuOpen, setMenuOpen] = useState(false);
+  // const [menuOpen, setMenuOpen] = useState(false);
   const navRef = useRef();
 
   const { signOut, user } = useAuth();
-
   const { setSearch, searchValue } = useSearch();
 
   const navigate = useNavigate();
@@ -42,6 +41,12 @@ export function Header() {
     signOut();
   }
 
+  function handleKeyPress(e) {
+    if (e.key === 'Enter') {
+      toggleNavbar(e);
+    }
+  }
+
   function toggleNavbar(e) {
     console.log('toggleNavbar', e.target);
     navRef.current.classList.toggle('mobile-menu');
@@ -49,7 +54,7 @@ export function Header() {
 
   return (
     <Container>
-      <button className="menu" onClick={toggleNavbar} aria-label="Abrir Menu">
+      <button className="menu no-bg" onClick={toggleNavbar} aria-label="Abrir Menu">
         <img id="menu-img" src={openMenuImg} alt="abrir menu" />
       </button>
 
@@ -58,12 +63,12 @@ export function Header() {
           <img src={logoImg} alt="logo food explorer" />
           <h1>food explorer</h1>
         </div>
-        {user.admin ? <span>Admin</span> : null}
+        {user.admin ? <span>Admin</span> : <></>}
       </div>
 
-      <div className="bar">
+      <div className="navbar">
         <nav ref={navRef}>
-          <button className="menu" onClick={toggleNavbar} aria-label="Fechar Menu">
+          <button className="menu no-bg" onClick={toggleNavbar} aria-label="Fechar Menu">
             <img src={closeMenuImg} alt="fechar menu" />
             Menu
           </button>
@@ -74,6 +79,7 @@ export function Header() {
             Icon={FiSearch}
             value={searchValue}
             onChange={(e) => setSearch(e.target.value)}
+            onKeyPress={(e) => handleKeyPress(e)}
           />
 
           {user.admin ? (
@@ -94,7 +100,7 @@ export function Header() {
 
         {user.admin ? (
           <Button
-            className='desktop-only'
+            className='desktop-only btn-new-dish'
             onClick={() => {
               navigate('/new');
             }}
@@ -102,12 +108,14 @@ export function Header() {
             Novo prato
           </Button>
         ) : (
-          <button aria-label="pedido">
-            <img src={receiptImg} alt="" />
+            <button aria-label="pedido" id='btn-order' type='button'>
+              <img src={receiptImg} alt="icone do pedido" />
+              <span className='btn-order-text'>Pedidos</span>
+              <span className='btn-order-qty'>{cart.items}</span>
           </button>
         )}
 
-        <button id="exit" onClick={handleSignOut}>
+        <button id="exit" onClick={handleSignOut} className='no-bg'>
           <img src={exitImg} alt="Sair da aplicação" />
         </button>
       </div>

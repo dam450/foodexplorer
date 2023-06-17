@@ -14,9 +14,8 @@ import { QuantityPicker } from '../../components/QuantityPicker';
 import { api } from '../../services/api';
 
 export function Dish() {
-  const [ quantity, setQuantity ] = useState(5);
+  const [ quantity, setQuantity ] = useState(1);
   const [ dish, setDish ] = useState();
-  // const [ dishPreview, setDishPreview ] = useState(null);
 
   const { id } = useParams();
   const navigate = useNavigate();
@@ -35,9 +34,6 @@ export function Dish() {
       const { data } = await api.get(`/dishes/${dishId}`);
       if (data.id) {
         setDish(data);
-        // setDishPreview(dish?.picture ? `${api.defaults.baseURL}/files/${dish.picture}` : PreviewPlaceholder);
-        // console.log('dish: ', data);
-        // console.log('api:', api.defaults.baseURL)
       }
     } catch (error) {
       console.error(error);
@@ -56,22 +52,25 @@ export function Dish() {
         <Link to={'/'}>
           <img src={CaretLeft} alt="voltar" /> Voltar
         </Link>
-        <div className="dish-wrapper">
-          <div className="dish-preview">
-            <img src={dishPreviewURL} alt="foto do prato" />
-          </div>
-          <div className="info">
-            <h3>{dish?.name}</h3>
-            <p>{dish?.description}</p>
-            <div className="tags">
-              {dish?.ingredients ? dish.ingredients.map((item, id) => <Tag key={id} title={item} />) : null}
+        {dish &&
+          <div className="dish-wrapper">
+            <div className="dish-preview">
+              <img src={dishPreviewURL} alt="foto do prato" />
             </div>
-            <div className="order">
-              <QuantityPicker value={quantity} setValue={setQuantity} onChange={setQuantity} />
-              <Button onClick={handleSubmit}>incluir ∙ R$ {dish?.price ? String(dish?.price.toFixed(2)).replace('.', ',') : "--"}</Button>
+            <div className="info">
+              <h3>{dish?.name}</h3>
+              <p>{dish?.description}</p>
+              <div className="tags">
+                {dish?.ingredients ? dish.ingredients.map((item, id) => <Tag key={id} title={item} />) : null}
+              </div>
+              <div className="order">
+                <QuantityPicker value={quantity} setValue={setQuantity} onChange={setQuantity} />
+                <Button onClick={handleSubmit}>incluir ∙ R$ {dish?.price ? String(dish?.price.toFixed(2)).replace('.', ',') : "--"}</Button>
+              </div>
             </div>
           </div>
-        </div>
+        }
+
       </Content>
       <Footer />
     </Container>

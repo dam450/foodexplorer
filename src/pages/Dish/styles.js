@@ -59,7 +59,7 @@ export const Content = styled.div`
     align-content: center;
     justify-content: center;
     gap: 1.6rem;
-
+    margin-bottom: 3.4rem;
     text-align: center;
 
     .dish-preview {
@@ -68,9 +68,12 @@ export const Content = styled.div`
       max-width: 26.4rem;
       aspect-ratio: 1 / 1;
       margin: 0 auto;
+
       > img {
         width: 100%;
         height: 100%;
+        border-radius: 50%;
+        margin-bottom: 1.6rem;
 
         animation-name: show;
         animation-duration: 800ms;
@@ -88,6 +91,7 @@ export const Content = styled.div`
       font-weight: 500;
       font-size: 2.7rem;
       line-height: 140%;
+      margin-bottom: 2.4rem;
 
       color: ${({ theme }) => theme.COLORS.LIGHT_300};
     }
@@ -98,6 +102,7 @@ export const Content = styled.div`
       font-weight: 400;
       font-size: 1.6rem;
       line-height: 140%;
+      margin-bottom: 2.4rem;
 
       color: ${({ theme }) => theme.COLORS.LIGHT_300};
     }
@@ -105,10 +110,11 @@ export const Content = styled.div`
     .tags {
       display: flex;
       flex-wrap: wrap;
+      margin-bottom: 4.8rem;
 
       width: 100%;
       justify-content: center;
-      }
+    }
 
     .order {
       display: flex;

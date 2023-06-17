@@ -27,16 +27,16 @@ export const Container = styled.header`
     }
   }
 
-  button {
+  button.no-bg {
     border: 0;
     border-radius: 2px;
-    background: none;
+    background: transparent;
     padding: 0.8rem 0.8rem 0.8rem 0;
     display: flex;
     align-items: center;
     justify-content: center;
 
-    color: #ffffff;
+    color: ${({ theme }) => theme.COLORS.LIGHT_100};
     font-family: 'Roboto';
     font-size: 2.1rem;
     gap: 1.6rem;
@@ -59,12 +59,11 @@ export const Container = styled.header`
     span {
       font-size: 12px;
       line-height: 160%;
-      color: #82f3ff;
+      color: ${({ theme }) => theme.COLORS.CAKE_100};
     }
   }
 
   .logo {
-    /* border: 1px solid green; */
     display: flex;
     gap: 0.8rem;
     align-items: center;
@@ -77,13 +76,11 @@ export const Container = styled.header`
     h1 {
       font-family: 'Roboto';
       font-size: 2.1rem;
-      color: #ffffff;
+      color: ${({ theme }) => theme.COLORS.LIGHT_100};
     }
   }
 
   nav {
-    /* border: 1px solid gold; */
-
     z-index: 999;
     position: fixed;
     top: 0;
@@ -92,7 +89,7 @@ export const Container = styled.header`
     height: 100%;
     padding: 56px 28px;
 
-    background: linear-gradient(#001119 114px, #000a0f 114px);
+    background: ${({ theme }) => theme.COLORS.MOBILE_MENU};
 
     display: flex;
     flex-direction: column;
@@ -119,8 +116,15 @@ export const Container = styled.header`
     display: block;
     width: 100%;
     text-align: left;
-    border-bottom: 1px solid #192227;
+    border: none;
+    border-bottom: 1px solid ${({ theme }) => theme.COLORS.DARK_1000};
     height: 54px;
+
+    background-color: transparent;
+    color: ${({ theme }) => theme.COLORS.LIGHT_100};
+    font-family: 'Roboto';
+    font-size: 2.1rem;
+    gap: 1.6rem;
   }
 
   #exit {
@@ -138,6 +142,7 @@ export const Container = styled.header`
 
     .logo-wrapper {
       flex-direction: column;
+      word-break: keep-all;
     }
 
     .logo {
@@ -173,13 +178,11 @@ export const Container = styled.header`
       }
     }
 
-    .bar {
-      /* border: 1px solid red; */
-      width: 68%;
+    .navbar {
+      width: 75%;
       display: grid;
-      /* grid: auto-flow dense / auto auto 40px; */
 
-      grid-template-columns: auto auto 40px;
+      grid-template-columns: auto 160px 40px;
       grid-template-areas: 'search button exit';
 
       gap: 3rem;
@@ -188,9 +191,85 @@ export const Container = styled.header`
         grid-area: search;
         width: 100%;
       }
+
       #exit {
         display: initial;
         grid-area: exit;
+      }
+    }
+  }
+
+  #btn-order{
+    /* border: 1px dashed red; */
+    position: relative;
+    border: none;
+    background-color: transparent;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: .8rem;
+
+    .btn-order-text {
+      display: none;
+    }
+    .btn-order-qty {
+      color: ${({ theme }) => theme.COLORS.LIGHT_100};
+      background-color: ${({ theme }) => theme.COLORS.TOMATO_100};
+      padding: 8px;
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      font-family: 'Poppins';
+      font-style: normal;
+      font-weight: 500;
+      font-size: 14px;
+      line-height: 24px;
+
+      position: absolute;
+      top: -30%;
+      right: -30%;
+      overflow: hidden;
+      /* border: 1px solid blue; */
+    }
+
+    ${DEVICE.lg} {
+      background-color: ${({ theme }) => theme.COLORS.TOMATO_100};
+      border-radius: 8px;
+      padding: 12px 46px;
+
+      .btn-order-qty,
+      .btn-order-text {
+        display: inline;
+        color: ${({ theme }) => theme.COLORS.LIGHT_100};
+
+        font-family: 'Poppins';
+        font-style: normal;
+        font-weight: 500;
+        font-size: 14px;
+        line-height: 24px;
+      }
+      .btn-order-qty {
+        display: inline;
+        position: unset;
+        top: unset;
+        right: unset;
+        padding: unset;
+        width: unset;
+        height: unset;
+        border-radius: unset;
+        justify-content: unset;
+        align-items: unset;
+        overflow: unset;
+      }
+      .btn-order-qty::before {
+        content: '(';
+      }
+      .btn-order-qty::after {
+        content: ')';
       }
     }
   }

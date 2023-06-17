@@ -10,7 +10,7 @@ export const Container = styled.div`
   min-height: 100vh;
 
   display: grid;
-  grid-template-rows: 11.4rem auto 7.7rem;
+  grid-template-rows: 9.6rem auto 7.7rem;
   grid-template-areas:
     'header'
     'Content'
@@ -145,7 +145,7 @@ export const Content = styled.div`
       resize: none;
 
       background-color: ${({ theme }) => theme.COLORS.DARK_800};
-      color: ${({ theme }) => theme.COLORS.LIGHT_500};
+      color: ${({ theme }) => theme.COLORS.LIGHT_100};
       border: none;
       padding: 1.4rem;
       border-radius: 0.8rem;
@@ -155,6 +155,10 @@ export const Content = styled.div`
       font-weight: 400;
       font-size: 1.6rem;
       line-height: 100%;
+
+      &::placeholder {
+        color: ${({ theme }) => theme.COLORS.LIGHT_500};
+      }
     }
 
     .select-container {
@@ -179,7 +183,7 @@ export const Content = styled.div`
         min-height: 4.8rem;
         padding: 1.4rem;
         background-color: ${({ theme }) => theme.COLORS.DARK_800};
-        color: ${({ theme }) => theme.COLORS.LIGHT_500};
+        color: ${({ theme }) => theme.COLORS.LIGHT_100};
 
         cursor: pointer;
         padding-right: 4rem;
@@ -193,7 +197,15 @@ export const Content = styled.div`
         background-image: url(${ChevronDown});
         background-repeat: no-repeat;
         background-size: 2.4rem;
-        background-position: bottom 50% right 1.6rem; ;
+        background-position: bottom 50% right 1.6rem;
+
+        &:invalid {
+          color: ${({ theme }) => theme.COLORS.LIGHT_500};
+        }
+
+        option {
+          color: ${({ theme }) => theme.COLORS.LIGHT_100};
+        }
       }
     }
 
@@ -208,6 +220,13 @@ export const Content = styled.div`
     input[type=number] {
       -moz-appearance: textfield;
       appearance: textfield;
+    }
+
+    input {
+      color: ${({ theme }) => theme.COLORS.LIGHT_100};
+      &::placeholder {
+        color: ${({ theme }) => theme.COLORS.LIGHT_500};
+      }
     }
   }
 

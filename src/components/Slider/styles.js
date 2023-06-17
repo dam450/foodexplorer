@@ -24,11 +24,11 @@ export const Container = styled.section`
 
   ${DEVICE.lg} {
     [class*="number-slide"]:first-of-type {
-      margin-left: 3rem;
+      /* margin-left: 3rem; */
     }
 
     [class*="number-slide"]:last-of-type {
-      padding-right: 4rem;
+      /* padding-right: 3rem; */
     }
   }
 
@@ -46,6 +46,7 @@ export const Container = styled.section`
   }
 
   .arrow-bg.arrow--right, .arrow-bg.arrow--left {
+    /* Arrow Shadow */
     &::before{
       content: '';
       width: 4rem;
@@ -78,7 +79,6 @@ export const Container = styled.section`
   }
 
   .arrow--disabled {
-    /* fill: rgba(255, 255, 255, 0.5); */
     fill: ${({ theme }) => theme.COLORS.LIGHT_100};
     opacity: 0.2;
   }

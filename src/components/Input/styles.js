@@ -22,7 +22,7 @@ export const Container = styled.div`
 
   > input {
     background-color: transparent;
-    color: ${({ theme }) => theme.COLORS.LIGHT_500};
+    color: ${({ theme }) => theme.COLORS.LIGHT_100};
 
     border: none;
     height: 100%;
@@ -36,5 +36,9 @@ export const Container = styled.div`
     font-weight: 400;
     font-size: 1.6rem;
     line-height: 100%;
+
+    &::placeholder {
+      color: ${({ theme }) => theme.COLORS.LIGHT_500};
+    }
   }
 `;

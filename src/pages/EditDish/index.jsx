@@ -1,5 +1,6 @@
 import { useEffect, useState, useRef } from 'react';
 import { Link, useNavigate, useParams } from 'react-router-dom';
+import { toast } from 'react-hot-toast';
 
 import { Container, Content, DarkButton, TomatoButton } from './styles';
 
@@ -16,19 +17,14 @@ import { Modal } from '../../components/Modal';
 import { api } from '../../services/api';
 
 export function EditDish() {
-
   const { id } = useParams();
 
-  const navigate = useNavigate();
-
-  // const [ dish, setDish ] = useState({});
   const [ categories, setCategories ] = useState([]);
   const [ dishImageFile, setDishImageFile ] = useState(null);
   const [ imgNameDisplay, setImgNameDisplay ] = useState('Selecione imagem');
 
+  const navigate = useNavigate();
   const [ isModalOpen, setModalOpen ] = useState(false);
-
-  // const addNew = useRef(null);
 
   const [ ingredients, setIngredients ] = useState([]);
   const [ newIngredient, setNewIngredient ] = useState('');
@@ -59,21 +55,25 @@ export function EditDish() {
   }
 
   async function handleDelete(id) {
-    const { status } = await api.delete(`/dishes/${id}`);
+    toast.loading(`Removendo prato ${name}...`, { id: 'deleteDish' });
 
-    alert(`Prato ${id} deletado!`);
-    navigate('/');
+    try {
+      await api.delete(`/dishes/${id}`);
+      toast.success(`Prato ${name} removido!`, { id: 'deleteDish' });
+      navigate('/');
+
+    } catch (error) {
+      toast.error(`Falha ao remover o prato ${name}.`, { id: 'deleteDish' });
+    }
   }
 
   async function handleSubmit() {
 
     switch (true) {
       case name === '':
-        return alert('informe o nome do prato.');
-      case dishCategory == 0:
-        return alert('informe a categoria.');
-      case price == 0:
-        return alert('informe o preço');
+        return toast.error(`Informe o nome do prato.`, { id: 'missingInfo' });
+      case dishCategory === 0:
+        return toast.error(`Informe a categoria do prato.`, { id: 'missingInfo' });
     }
 
     const dishUpdate = {
@@ -84,19 +84,25 @@ export function EditDish() {
       ingredients
     };
 
-    const { data: savedDish } = await api.put(`/dishes/${id}`, dishUpdate);
+    toast.loading('Salvando alterações...', { id: 'dishUpdate' });
 
+    try {
+      await api.put(`/dishes/${id}`, dishUpdate);
 
-    if (dishImageFile && id) {
-      const fileUploadForm = new FormData();
-      fileUploadForm.append('picture', dishImageFile);
+      if (dishImageFile && id) {
+        const fileUploadForm = new FormData();
+        fileUploadForm.append('picture', dishImageFile);
 
-      await api.patch(`/dishes/${id}/picture`, fileUploadForm);
+        await api.patch(`/dishes/${id}/picture`, fileUploadForm);
+      }
+
+      toast.success(`Prato alterado com sucesso!`, { id: 'dishUpdate' });
+      navigate('/');
+
+    } catch (error) {
+      toast.error(`Falha ao salvar alterações.`, { id: 'dishUpdate' });
     }
 
-    alert(`prato ${id} salvo!`);
-
-    navigate('/');
   }
 
   function handleImageKeypress(event) {
