@@ -41,6 +41,12 @@ export function Header() {
     signOut();
   }
 
+  function handleKeyPress(e) {
+    if (e.key === 'Enter') {
+      toggleNavbar(e);
+    }
+  }
+
   function toggleNavbar(e) {
     console.log('toggleNavbar', e.target);
     navRef.current.classList.toggle('mobile-menu');
@@ -73,6 +79,7 @@ export function Header() {
             Icon={FiSearch}
             value={searchValue}
             onChange={(e) => setSearch(e.target.value)}
+            onKeyPress={(e) => handleKeyPress(e)}
           />
 
           {user.admin ? (
