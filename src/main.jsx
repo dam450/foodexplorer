@@ -9,6 +9,7 @@ import theme from './styles/theme';
 import { Routes } from './routes';
 import { AuthProvider } from './hooks/auth';
 import { SearchProvider } from './hooks/search';
+import { CartProvider } from './hooks/cart';
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
@@ -16,7 +17,9 @@ ReactDOM.createRoot(document.getElementById('root')).render(
       <GlobalStyle />
       <AuthProvider>
         <SearchProvider>
-          <Routes />
+          <CartProvider>
+            <Routes />
+          </CartProvider>
         </SearchProvider>
       </AuthProvider>
       <Toaster toastOptions={{
