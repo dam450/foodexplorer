@@ -12,10 +12,13 @@ import { Tag } from '../../components/Tag';
 import { QuantityPicker } from '../../components/QuantityPicker';
 
 import { api } from '../../services/api';
+import { useCart } from '../../hooks/cart';
 
 export function Dish() {
   const [ quantity, setQuantity ] = useState(1);
   const [ dish, setDish ] = useState();
+
+  const { addDish } = useCart();
 
   const { id } = useParams();
   const navigate = useNavigate();
@@ -25,7 +28,7 @@ export function Dish() {
     : PreviewPlaceholder;
 
   function handleSubmit() {
-    alert(quantity);
+    addDish(dish, Number(quantity));
   }
 
   async function fetchDish(id) {

@@ -14,27 +14,19 @@ import { Input } from '../Input';
 import { Button } from '../Button';
 import { useAuth } from '../../hooks/auth';
 import { useSearch } from '../../hooks/search';
-
-const cart = { items: 0 };
+import { useCart } from '../../hooks/cart';
 
 export function Header() {
-  // const [menuOpen, setMenuOpen] = useState(false);
+
   const navRef = useRef();
 
   const { signOut, user } = useAuth();
   const { setSearch, searchValue } = useSearch();
+  const { cartItems } = useCart();
+
+  const cart = { items: cartItems };
 
   const navigate = useNavigate();
-
-  // function handleMenu() {
-  //   if (menuOpen) {
-  //     document.getElementById('menu-img').src = openMenuImg;
-  //     setMenuOpen(false);
-  //   } else {
-  //     document.getElementById('menu-img').src = closeMenuImg;
-  //     setMenuOpen(true);
-  //   }
-  // }
 
   function handleSignOut() {
     navigate('/');
