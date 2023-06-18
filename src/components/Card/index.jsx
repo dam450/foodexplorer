@@ -9,6 +9,7 @@ import ImagePlaceholder from '../../assets/empty_plate.png';
 import { api } from '../../services/api';
 
 import { useAuth } from '../../hooks/auth';
+import { useCart } from '../../hooks/cart';
 
 export function Card({ url = '#', dish, ...rest }) {
   const favoriteBtn = useRef(null);
@@ -17,6 +18,7 @@ export function Card({ url = '#', dish, ...rest }) {
   const [ qty, setQty ] = useState(1);
 
   const { user } = useAuth();
+  const { addDish } = useCart();
 
   const dishImageURL = dish.picture ? `${api.defaults.baseURL}/files/${dish.picture}` : ImagePlaceholder;
 
@@ -46,7 +48,7 @@ export function Card({ url = '#', dish, ...rest }) {
 
   function handleAddToCart() {
     if (qty === 0) return;
-    alert(`${qty} added to cart`);
+    addDish(dish, qty)
   }
 
   useEffect(() => {
