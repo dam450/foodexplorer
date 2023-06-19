@@ -42,10 +42,6 @@ function AuthProvider({ children }) {
     if (storedToken && storedUser) {
       const { expiration: tokenExpiration } = decodeJwt(storedToken);
 
-      console.log(decodeJwt("storedToken"));
-
-      console.log('Validade token:', tokenExpiration);
-
       if (tokenExpiration < new Date()) {
         alert('login expirado!');
         signOut();

@@ -15,7 +15,6 @@ export function Home() {
   const [ categories, setCategories ] = useState([]);
 
   const { searchValue, setSearch } = useSearch();
-  console.log('searchValue: ', searchValue);
 
   const query = searchValue === undefined ? '' : searchValue
 
@@ -23,8 +22,6 @@ export function Home() {
     try {
       const { data } = await api.get(`/dishes?search=${query}`);
       setDishes(data);
-      console.log(data);
-      console.log(dishes);
     } catch (error) {
       console.error(error);
     }
