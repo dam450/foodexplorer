@@ -183,8 +183,6 @@ export const SliderWrapper = styled.div`
   border: 1px dotted red;
   width: min(95vw, 1122px);
   margin: 0 auto 24px;
-  /* margin-bottom: 24px; */
-
 
     > h2 {
     margin-bottom: 23px;
@@ -193,26 +191,11 @@ export const SliderWrapper = styled.div`
     font-weight: 500;
     font-size: 18px;
     line-height: 140%;
-    color: #E1E1E6;
+    color: ${({ theme }) => theme.COLORS.LIGHT_300};
 
     ${DEVICE.lg} {
       font-size: 32px;
     }
   }
-
-  /* [class^="number-slide"],
-  [class*=" number-slide"] {
-    background: grey;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 50px;
-    color: #fff;
-    font-weight: 500;
-    height: 300px;
-    max-height: 100vh;
-  } */
-
-
 
 `;
